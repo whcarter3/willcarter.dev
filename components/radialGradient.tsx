@@ -19,9 +19,15 @@ function RadialGradient({
     setMouseY(e.clientY);
   };
 
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    setMouseX(e.touches[0].clientX);
+    setMouseY(e.touches[0].clientY);
+  };
+
   return (
     <div
       onMouseMove={handleMouseMove}
+      onTouchMove={handleTouchMove}
       className={`w-screen h-screen bg-brand-blue ${className}}`}
     >
       <div
