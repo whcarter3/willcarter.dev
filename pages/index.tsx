@@ -71,7 +71,7 @@ export default function Home() {
           </Link>
           <div className="h-full w-full flex items-center justify-center p-4 lg:p-0">
             <h1
-              className={`text-2xl md:text-3xl lg:text-[3rem] text-brand-darker text-center lg:text-left leading-snug ${ptMono.className}`}
+              className={`text-2xl md:text-[1.875rem] lg:text-[3rem] text-brand-darker text-center lg:text-left leading-snug ${ptMono.className}`}
             >
               Hello! <br className="lg:hidden" />
               My name is Will Carter,
