@@ -5,5 +5,8 @@
 @layer utilities {
   html, body {
     scroll-behavior: smooth!important;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
   }
 }
