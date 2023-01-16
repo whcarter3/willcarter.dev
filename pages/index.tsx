@@ -26,6 +26,13 @@ export default function Home() {
 
       <main>
         <RadialGradient>
+          <Image
+            src={'/logo-no-background.png'}
+            width={200}
+            height={200}
+            alt="Will Carter Dev Logo"
+            className="absolute top-3 left-1"
+          />
           <div className="h-full w-full flex items-center justify-center p-4 lg:p-0">
             <div className="w-[1040px]">
               <h1
