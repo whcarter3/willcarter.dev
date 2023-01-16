@@ -49,7 +49,7 @@ export default function Home() {
         <meta name="theme-color" content="#ffffff" />
       </Head>
 
-      <main>
+      <main className="overflow-hidden">
         <RadialGradient>
           <Link href="/">
             <Image
