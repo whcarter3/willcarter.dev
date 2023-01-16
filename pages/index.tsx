@@ -2,11 +2,8 @@ import { useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { PT_Mono } from '@next/font/google';
 import RadialGradient from '@/components/radialGradient';
 import { TypeAnimation } from 'react-type-animation';
-
-const ptMono = PT_Mono({ weight: '400', subsets: ['latin'] });
 
 const baseSentence = 'And I am a ';
 
@@ -71,7 +68,7 @@ export default function Home() {
           </Link>
           <div className="h-full w-full flex items-center justify-center p-4 lg:p-0">
             <h1
-              className={`text-2xl md:text-[1.875rem] lg:text-[3rem] text-brand-darker text-center lg:text-left leading-snug ${ptMono.className}`}
+              className={`text-2xl md:text-[1.875rem] lg:text-[3rem] text-brand-darker text-center lg:text-left leading-snug font-heading`}
             >
               Hello! <br className="lg:hidden" />
               My name is Will Carter,
