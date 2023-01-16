@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import RadialGradient from '@/components/radialGradient';
 import { TypeAnimation } from 'react-type-animation';
-
-const baseSentence = 'And I am a ';
+import RadialGradient from '@/components/radialGradient';
+import Nav from '@/components/nav';
+import Footer from '@/components/footer';
 
 export default function Home() {
-  // Add a class to the body element on mount
+  // Add a class to the body element on mount which prevents scrolling to enhance the gradient mouse/touchmove effect
   useEffect(() => {
     document.body.classList.add('home');
     return () => {
@@ -56,19 +56,11 @@ export default function Home() {
       </Head>
 
       <main>
+        <Nav className="fixed top-0 right-0 z-10" />
         <RadialGradient>
-          <Link href="/">
-            <Image
-              src={'/logo-square.png'}
-              width={100}
-              height={100}
-              alt="Will Carter Dev Logo"
-              className="fixed top-3 left-3"
-            />
-          </Link>
           <div className="h-full w-full flex items-center justify-center p-4 lg:p-0">
             <h1
-              className={`text-2xl md:text-[1.875rem] lg:text-[3rem] text-brand-darker text-center lg:text-left leading-snug font-heading`}
+              className={`text-2xl md:text-[1.875rem] lg:text-[2.5rem] text-brand-darker text-center lg:text-left leading-snug font-heading`}
             >
               Hello! <br className="lg:hidden" />
               My name is Will Carter,
@@ -77,29 +69,33 @@ export default function Home() {
                 // Same String at the start will only be typed once, initially
                 sequence={[
                   'and I am a Frontend engineer.',
-                  1500,
+                  1250,
                   'and I am a React developer.',
-                  1500,
+                  1250,
                   'and I am an accessibility advocate.',
-                  1500,
+                  1250,
                   'and I am a perfexoinst.',
                   420,
                   'and I am a perfectionist.',
-                  1500,
+                  1250,
                   'and I am a father.',
-                  1500,
+                  1250,
+                  'and I am a gamer.',
+                  1250,
                   'and I am a disc golfer.',
-                  1500,
+                  1250,
                   'and I am a fantasy football nerd.',
-                  1500,
+                  1250,
                   'and I am a Frontend engineer.',
-                  1500,
+                  1250,
                 ]}
-                speed={20} // Custom Speed from 1-99 - Default Speed: 40
+                speed={35} // Custom Speed from 1-99 - Default Speed: 40
                 wrapper="span" // Animation will be rendered as a <span>
+                deletionSpeed={70}
               />
             </h1>
           </div>
+          <Footer />
         </RadialGradient>
       </main>
     </>
