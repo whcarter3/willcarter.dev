@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import { PT_Mono } from '@next/font/google';
 import RadialGradient from '@/components/radialGradient';
 import { TypeAnimation } from 'react-type-animation';
@@ -50,16 +51,18 @@ export default function Home() {
 
       <main>
         <RadialGradient>
-          <Image
-            src={'/logo-square.png'}
-            width={100}
-            height={100}
-            alt="Will Carter Dev Logo"
-            className="absolute top-3 left-3"
-          />
+          <Link href="/">
+            <Image
+              src={'/logo-square.png'}
+              width={100}
+              height={100}
+              alt="Will Carter Dev Logo"
+              className="fixed top-3 left-3"
+            />
+          </Link>
           <div className="h-full w-full flex items-center justify-center p-4 lg:p-0">
             <h1
-              className={`text-3xl lg:text-[3rem] text-brand-darker text-center lg:text-left leading-snug ${ptMono.className}`}
+              className={`text-2xl md:text-3xl lg:text-[3rem] text-brand-darker text-center lg:text-left leading-snug ${ptMono.className}`}
             >
               Hello! <br className="lg:hidden" />
               My name is Will Carter,
