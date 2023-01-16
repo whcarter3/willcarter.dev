@@ -21,17 +21,41 @@ export default function Home() {
           name="viewport"
           content="width=device-width, initial-scale=1"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link
+          rel="mask-icon"
+          href="/safari-pinned-tab.svg"
+          color="#5bbad5"
+        />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
       </Head>
 
       <main>
         <RadialGradient>
           <Image
-            src={'/logo-no-background.png'}
-            width={200}
-            height={200}
+            src={'/logo-square.png'}
+            width={100}
+            height={100}
             alt="Will Carter Dev Logo"
-            className="absolute top-3 left-1"
+            className="absolute top-3 left-3"
           />
           <div className="h-full w-full flex items-center justify-center p-4 lg:p-0">
             <div className="w-[1040px]">
@@ -58,7 +82,7 @@ export default function Home() {
                     1500,
                     'and I am a disc golfer.',
                     1500,
-                    'and I am a gamer.',
+                    'and I am a fantasy football nerd.',
                     1500,
                     'and I am a Frontend engineer.',
                     1500,
