@@ -55,49 +55,47 @@ export default function Home() {
         <meta name="theme-color" content="#ffffff" />
       </Head>
 
-      <main>
-        <Nav className="fixed top-0 right-0 z-10" />
-        <RadialGradient>
-          <div className="h-full w-full flex items-center justify-center p-4 lg:p-0">
-            <h1
-              className={`text-2xl md:text-[1.875rem] lg:text-[2.5rem] text-brand-darker text-center lg:text-left leading-snug font-heading`}
-            >
-              Hello! <br className="lg:hidden" />
-              My name is Will Carter,
-              <br />
-              <TypeAnimation
-                // Same String at the start will only be typed once, initially
-                sequence={[
-                  'and I am a Frontend engineer.',
-                  1250,
-                  'and I am a React developer.',
-                  1250,
-                  'and I am an accessibility advocate.',
-                  1250,
-                  'and I am a perfexoinst.',
-                  420,
-                  'and I am a perfectionist.',
-                  1250,
-                  'and I am a father.',
-                  1250,
-                  'and I am a gamer.',
-                  1250,
-                  'and I am a disc golfer.',
-                  1250,
-                  'and I am a fantasy football nerd.',
-                  1250,
-                  'and I am a Frontend engineer.',
-                  1250,
-                ]}
-                speed={35} // Custom Speed from 1-99 - Default Speed: 40
-                wrapper="span" // Animation will be rendered as a <span>
-                deletionSpeed={70}
-              />
-            </h1>
-          </div>
-          <Footer />
-        </RadialGradient>
-      </main>
+      <Nav className="fixed top-0 right-0 z-10" />
+      <RadialGradient>
+        <div className="h-full w-full flex items-center justify-center p-4 lg:p-0">
+          <h1
+            className={`text-2xl md:text-[1.875rem] lg:text-[2.5rem] text-brand-darker text-center lg:text-left leading-snug font-heading w-[865px]`}
+          >
+            Hello! <br className="lg:hidden" />
+            My name is Will Carter,
+            <br />
+            <TypeAnimation
+              // Same String at the start will only be typed once, initially
+              sequence={[
+                'and I am a Frontend engineer.',
+                1000,
+                'and I am a React developer.',
+                1000,
+                'and I am an accessibility advocate.',
+                1000,
+                'and I am a perfexoinst.',
+                420,
+                'and I am a perfectionist.',
+                1000,
+                'and I am a father.',
+                1000,
+                'and I am a gamer.',
+                1000,
+                'and I am a disc golfer.',
+                1000,
+                'and I am a fantasy football nerd.',
+                1000,
+                'and I am a Frontend engineer.',
+                1000,
+              ]}
+              speed={35} // Custom Speed from 1-99 - Default Speed: 40
+              wrapper="span" // Animation will be rendered as a <span>
+              deletionSpeed={70}
+            />
+          </h1>
+        </div>
+        <Footer />
+      </RadialGradient>
     </>
   );
 }
