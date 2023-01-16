@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,10 +11,18 @@ const ptMono = PT_Mono({ weight: '400', subsets: ['latin'] });
 const baseSentence = 'And I am a ';
 
 export default function Home() {
+  // Add a class to the body element on mount
+  useEffect(() => {
+    document.body.classList.add('home');
+    return () => {
+      document.body.classList.remove('home');
+    };
+  }, []);
+
   return (
     <>
       <Head>
-        <title>William H Carter III Portfolio</title>
+        <title>Will Carter Dev</title>
         <meta
           name="description"
           content="A Portfolio Website for William H Carter III"
@@ -49,7 +58,7 @@ export default function Home() {
         <meta name="theme-color" content="#ffffff" />
       </Head>
 
-      <main className="overflow-hidden">
+      <main>
         <RadialGradient>
           <Link href="/">
             <Image

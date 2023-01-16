@@ -3,10 +3,8 @@
 @tailwind utilities;
 
 @layer utilities {
-  html, body {
-    scroll-behavior: smooth!important;
+  body.home {
     overflow: hidden;
-    position: relative;
     height: 100%;
   }
 }
