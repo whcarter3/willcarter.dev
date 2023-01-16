@@ -100,7 +100,6 @@ export default function Home() {
                 ]}
                 speed={20} // Custom Speed from 1-99 - Default Speed: 40
                 wrapper="span" // Animation will be rendered as a <span>
-                repeat={1} // Repeat this Animation Sequence infinitely
               />
             </h1>
           </div>
