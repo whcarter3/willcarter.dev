@@ -1,6 +1,11 @@
 import Link from 'next/link';
 import { IconContext } from 'react-icons';
-import { FaGithub, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
+import {
+  FaGithub,
+  FaLinkedinIn,
+  FaAngellist,
+  FaCodepen,
+} from 'react-icons/fa';
 
 interface FooterProps {
   className?: string;
@@ -29,11 +34,18 @@ function Footer({ className }: FooterProps): JSX.Element {
           <FaLinkedinIn />
         </Link>
         <Link
-          href="https://twitter.com/zzayphod"
+          href="https://angel.co/u/whc_tre"
           target={'_blank'}
           className="mr-5"
         >
-          <FaTwitter />
+          <FaAngellist />
+        </Link>
+        <Link
+          href="https://codepen.io/carterthethird"
+          target={'_blank'}
+          className="mr-5"
+        >
+          <FaCodepen />
         </Link>
       </footer>
     </IconContext.Provider>

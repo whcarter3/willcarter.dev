@@ -32,7 +32,7 @@ function RadialGradient({
       className={`w-screen h-screen bg-brand-blue ${className}}`}
     >
       <div
-        className="w-full h-full pl-5 pt-3 transition-all duration-700 ease-in-out"
+        className="w-full h-full pl-5 pt-3"
         style={{
           background: gradient,
         }}

@@ -21,13 +21,22 @@ function Nav({ className }: NavProps): JSX.Element {
           />
         </Link>
         <div>
-          <Link href="/works" className="font-heading text-xl mr-5">
+          <Link
+            href="/works"
+            className="font-heading md:text-xl mr-5"
+          >
             Works
           </Link>
-          <Link href="/about" className="font-heading text-xl mr-5">
+          <Link
+            href="/about"
+            className="font-heading md:text-xl mr-5"
+          >
             About
           </Link>
-          <Link href="/contact" className="font-heading text-xl mr-5">
+          <Link
+            href="/contact"
+            className="font-heading md:text-xl mr-5"
+          >
             Contact
           </Link>
         </div>

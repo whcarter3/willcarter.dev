@@ -4,8 +4,26 @@ import ContactForm from '@/components/contactForm';
 const Contact = (): JSX.Element => {
   return (
     <Layout>
-      <h1 className="text-4xl">Drop me a message!</h1>
-      <ContactForm />
+      <div className="grid grid-cols:1 md:grid-cols-2 gap-16 md:gap-5">
+        <div>
+          <h1 className="text-4xl">Drop me a message!</h1>
+          <ContactForm />
+        </div>
+        <div>
+          <h1 className="text-4xl mb-5">Sign the guestbook!</h1>
+          <p className="text-2xl">
+            You must authenticate with Github to sign the guestbook!
+          </p>
+          <button className="button mt-3">Login</button>
+          <div className="border-b-2 border-brand-darker mt-5 pb-2">
+            <p className="text-xl">What a dope site!</p>
+            <p className="text-sm">
+              <span className="italic">Anonymous </span> | 17 Jan 2022
+              @ 12:59 am
+            </p>
+          </div>
+        </div>
+      </div>
     </Layout>
   );
 };

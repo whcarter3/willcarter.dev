@@ -59,7 +59,7 @@ export default function Home() {
       <RadialGradient>
         <div className="h-full w-full flex items-center justify-center p-4 lg:p-0">
           <h1
-            className={`text-2xl md:text-[1.875rem] lg:text-[2.5rem] text-brand-darker text-center lg:text-left leading-snug font-heading w-[865px]`}
+            className={`text-2xl lg:text-[2.5rem] text-brand-darker text-center lg:text-left leading-snug font-heading`}
           >
             Hello! <br className="lg:hidden" />
             My name is Will Carter,

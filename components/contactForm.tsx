@@ -1,15 +1,32 @@
 import { useForm, ValidationError } from '@formspree/react';
+import Link from 'next/link';
 
 function ContactForm(): JSX.Element {
   const [state, handleSubmit] = useForm('mzbqzeya');
   if (state.succeeded) {
-    return <p>Message sent successfully!</p>;
+    return (
+      <>
+        <p className="mt-5 text-xl">Woohoo! Thanks for the mail!</p>
+        <p className="my-5 text-xl">
+          Here&apos;s a random youtube video for you:
+        </p>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+      </>
+    );
   }
   return (
     <form
       name="contact-form"
       onSubmit={handleSubmit}
-      className="contact-form"
+      className="contact-form md:max-w-md"
     >
       <div>
         <label htmlFor="full-name">
@@ -67,12 +84,13 @@ function ContactForm(): JSX.Element {
         type="hidden"
         name="_subject"
         id="email-subject"
-        value="Contact Form Submission from willcarter.dev"
+        value="willcarter.dev: New message!"
       />
       <button
         type="submit"
         value="Submit"
         disabled={state.submitting}
+        className="button"
       >
         Submit
       </button>
