@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import logoImage from '/public/logo-square.png';
 
 interface NavProps {
   className?: string;
@@ -10,12 +11,12 @@ function Nav({ className }: NavProps): JSX.Element {
     <nav
       className={`${className} px-5 py-5 w-full fixed top-0 left-0 z-10`}
     >
-      <div className="container flex justify-between mx-auto">
+      <div className="max-w-[1250px] flex justify-between items-center mx-auto">
         <Link href="/">
           <Image
-            src={'/logo-square.png'}
-            width={100}
-            height={100}
+            src={logoImage}
+            width={75}
+            height={75}
             alt="Will Carter Dev Logo"
           />
         </Link>

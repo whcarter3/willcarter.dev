@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 type RadialGradientProps = {
   className?: string;
@@ -11,6 +11,7 @@ function RadialGradient({
 }: RadialGradientProps): JSX.Element {
   const [mouseX, setMouseX] = useState(0);
   const [mouseY, setMouseY] = useState(0);
+  const gradient = `radial-gradient(circle at ${mouseX}px ${mouseY}px, #ffDD4a, #ff9000)`;
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -31,9 +32,9 @@ function RadialGradient({
       className={`w-screen h-screen bg-brand-blue ${className}}`}
     >
       <div
-        className="w-full h-full pl-5 pt-3"
+        className="w-full h-full pl-5 pt-3 transition-all duration-700 ease-in-out"
         style={{
-          background: `radial-gradient(circle at ${mouseX}px ${mouseY}px, #ffDD4a, #ff9000)`,
+          background: gradient,
         }}
       >
         {children}

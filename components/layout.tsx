@@ -8,9 +8,9 @@ interface LayoutProps {
 
 function Layout({ children, className }: LayoutProps): JSX.Element {
   return (
-    <div className={`${className} mt-[140px] p-5`}>
+    <div className={`${className} mt-[140px] p-6`}>
       <Nav className="bg-gradient shadow-lg" />
-      <div className="container mx-auto">{children}</div>
+      <div className="max-w-[1250px] mx-auto">{children}</div>
       <Footer className="bg-gradient shadow-lg" />
     </div>
   );
