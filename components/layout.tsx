@@ -11,10 +11,10 @@ function Layout({ children, className }: LayoutProps): JSX.Element {
     <div
       className={`${
         className ? className : ''
-      } mt-[140px] pb-[120px] p-6 relative`}
+      } mt-[115px] pb-[120px] p-6 relative`}
     >
       <Nav className="bg-gradient shadow-lg" />
-      <div className="max-w-[1250px] mx-auto">{children}</div>
+      <div className="max-w-[1250px] mx-auto layout">{children}</div>
       <Footer className="bg-gradient shadow-lg" />
     </div>
   );

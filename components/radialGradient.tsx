@@ -29,7 +29,7 @@ function RadialGradient({
     <div
       onMouseMove={handleMouseMove}
       onTouchMove={handleTouchMove}
-      className={`w-screen h-screen bg-brand-blue ${className}}`}
+      className={`w-screen h-screen ${className}`}
     >
       <div
         className="w-full h-full pl-5 pt-3"
