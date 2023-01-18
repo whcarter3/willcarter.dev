@@ -1,4 +1,5 @@
 import { useForm, ValidationError } from '@formspree/react';
+import Button from './button';
 import Link from 'next/link';
 
 function ContactForm(): JSX.Element {
@@ -86,14 +87,14 @@ function ContactForm(): JSX.Element {
         id="email-subject"
         value="willcarter.dev: New message!"
       />
-      <button
+      <Button
         type="submit"
+        className="button"
         value="Submit"
         disabled={state.submitting}
-        className="button"
       >
         Submit
-      </button>
+      </Button>
     </form>
   );
 }

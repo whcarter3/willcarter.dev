@@ -1,5 +1,6 @@
 import Layout from '@/components/layout';
 import ContactForm from '@/components/contactForm';
+import Button from '@/components/button';
 
 const Contact = (): JSX.Element => {
   return (
@@ -14,7 +15,7 @@ const Contact = (): JSX.Element => {
           <p className="text-2xl">
             You must authenticate with Github to sign the guestbook!
           </p>
-          <button className="button mt-3">Login</button>
+          <Button className="mt-3">Login</Button>
           <div className="border-b-2 border-brand-darker mt-5 pb-2">
             <p className="text-xl">What a dope site!</p>
             <p className="text-sm">

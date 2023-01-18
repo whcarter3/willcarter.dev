@@ -55,7 +55,7 @@ export default function Home() {
         <meta name="theme-color" content="#ffffff" />
       </Head>
 
-      <Nav className="fixed top-0 right-0 z-10" />
+      <Nav className="fixed top-0 right-0 z-10" home />
       <RadialGradient>
         <div className="h-full w-full flex items-center justify-center p-4 lg:p-0">
           <h1
@@ -94,7 +94,7 @@ export default function Home() {
             />
           </h1>
         </div>
-        <Footer />
+        <Footer home />
       </RadialGradient>
     </>
   );
