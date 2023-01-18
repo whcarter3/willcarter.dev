@@ -22,7 +22,7 @@ const About = (): JSX.Element => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            Download my resume!
+            Download My Resume
           </Link>
         </div>
         <div className="col-span-2">
