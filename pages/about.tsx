@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Layout from '@/components/layout';
 import useGradient from '@/hooks/useGradient';
-import Head from 'next/head';
 
 const About = (): JSX.Element => {
   const [gradient, handleMove, ref] =
@@ -11,10 +10,10 @@ const About = (): JSX.Element => {
 
   return (
     <>
-      <Head>
-        <title>About Me</title>
-      </Head>
-      <Layout>
+      <Layout
+        title="Will Carter - About Me"
+        description="About Will Carter - A Senior Frontend Engineer"
+      >
         <div className="flex justify-between items-center mb-5"></div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-14">

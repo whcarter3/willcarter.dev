@@ -22,7 +22,7 @@
   }
 
   .contact-form label span {
-    @apply font-heading block mb-1;
+    @apply font-heading block mb-1 text-brand-darker;
   }
 
   .contact-form input, .contact-form textarea {
