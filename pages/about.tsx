@@ -1,8 +1,31 @@
-import Layout from '@/components/layout';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Layout from '@/components/layout';
 
 const About = (): JSX.Element => {
+  const [mouseX, setMouseX] = useState(0);
+  const [mouseY, setMouseY] = useState(0);
+  const gradient = `radial-gradient(circle at ${mouseX}px ${mouseY}px, #ffDD4a, #ff9000)`;
+  const buttonRef = useRef<HTMLAnchorElement>(null);
+
+  const handleMouseMove = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    const buttonRect = buttonRef.current?.getBoundingClientRect();
+    if (buttonRect) {
+      setMouseX(e.clientX - buttonRect.left);
+      setMouseY(e.clientY - buttonRect.top);
+    }
+  };
+
+  const handleTouchMove = (
+    e: React.TouchEvent<HTMLAnchorElement>
+  ) => {
+    setMouseX(e.touches[0].clientX);
+    setMouseY(e.touches[0].clientY);
+  };
+
   return (
     <Layout>
       <div className="flex justify-between items-center mb-5"></div>
@@ -19,8 +42,12 @@ const About = (): JSX.Element => {
           <Link
             href="will-carter-resume.pdf"
             className="button inline-block"
+            style={{ background: gradient }}
             rel="noopener noreferrer"
             target="_blank"
+            ref={buttonRef}
+            onMouseMove={handleMouseMove}
+            onTouchMove={handleTouchMove}
           >
             Download My Resume
           </Link>

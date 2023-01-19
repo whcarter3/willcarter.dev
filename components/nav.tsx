@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import classNames from 'classnames';
 import logoImage from '/public/logo-square.png';
 
 interface NavProps {
@@ -13,6 +15,7 @@ function Nav({ className, home }: NavProps): JSX.Element {
   const [mouseY, setMouseY] = useState(0);
   const gradient = `radial-gradient(circle at ${mouseX}px ${mouseY}px, #ffDD4a, #ff9000)`;
   const divRef = useRef<HTMLElement>(null);
+  const router = useRouter();
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLElement, MouseEvent>
@@ -49,19 +52,31 @@ function Nav({ className, home }: NavProps): JSX.Element {
         <div>
           <Link
             href="/works"
-            className="font-heading md:text-xl mr-5"
+            className={classNames(
+              'font-heading mx:text-xl mr-5 pb-1',
+              router.pathname === '/works' &&
+                'border-b-2 border-brand-darker'
+            )}
           >
             Works
           </Link>
           <Link
             href="/about"
-            className="font-heading md:text-xl mr-5"
+            className={classNames(
+              'font-heading mx:text-xl mr-5 pb-1',
+              router.pathname === '/about' &&
+                'border-b-2 border-brand-darker'
+            )}
           >
             About
           </Link>
           <Link
             href="/contact"
-            className="font-heading md:text-xl mr-5"
+            className={classNames(
+              'font-heading mx:text-xl mr-5 pb-1',
+              router.pathname === '/contact' &&
+                'border-b-2 border-brand-darker'
+            )}
           >
             Contact
           </Link>

@@ -62,7 +62,14 @@ export default function Home() {
             className={`text-2xl lg:text-[2.5rem] text-brand-darker text-center lg:text-left leading-snug font-heading`}
           >
             Hello! <br className="lg:hidden" />
-            My name is Will Carter,
+            My name is{' '}
+            <Link
+              href="/about"
+              className="border-b-2 border-brand-darker font-heading"
+            >
+              Will Carter
+            </Link>
+            ,
             <br />
             <TypeAnimation
               // Same String at the start will only be typed once, initially
