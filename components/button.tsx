@@ -1,20 +1,16 @@
 import { useState, useRef } from 'react';
 import useGradient from '@/hooks/useGradient';
 
-interface ButtonProps {
+interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   children: React.ReactNode;
-  type?: 'button' | 'submit' | 'reset';
-  value?: string;
-  disabled?: boolean;
 }
 
 const Button = ({
   className,
   children,
-  type = 'button',
-  value,
-  disabled,
+  ...props
 }: ButtonProps): JSX.Element => {
   const [gradient, handleMove, ref] =
     useGradient<HTMLButtonElement>();
@@ -25,9 +21,7 @@ const Button = ({
       onMouseMove={handleMove.onMouseMove}
       onTouchMove={handleMove.onTouchMove}
       ref={ref}
-      type={type}
-      value={value}
-      disabled={disabled}
+      {...props}
     >
       {children}
     </button>

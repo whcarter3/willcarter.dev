@@ -1,5 +1,6 @@
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
+import { SessionProvider } from 'next-auth/react';
 import { PT_Mono, Source_Sans_Pro } from '@next/font/google';
 
 const ptMono = PT_Mono({
@@ -14,10 +15,17 @@ const sourceSansPro = Source_Sans_Pro({
   variable: '--font-source-sans-pro',
 });
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   return (
-    <main className={`${ptMono.variable} ${sourceSansPro.variable}`}>
-      <Component {...pageProps} />
-    </main>
+    <SessionProvider session={session}>
+      <main
+        className={`${ptMono.variable} ${sourceSansPro.variable}`}
+      >
+        <Component {...pageProps} />
+      </main>
+    </SessionProvider>
   );
 }

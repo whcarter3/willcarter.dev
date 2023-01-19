@@ -2,6 +2,7 @@ import Layout from '@/components/layout';
 import ContactForm from '@/components/contactForm';
 import Button from '@/components/button';
 import Head from 'next/head';
+import { signIn } from 'next-auth/react';
 
 const Contact = (): JSX.Element => {
   return (
@@ -22,7 +23,14 @@ const Contact = (): JSX.Element => {
             <p className="text-2xl">
               You must authenticate with Github to sign the guestbook.
             </p>
-            <Button className="mt-3">Login</Button>
+            <Button
+              className="mt-3"
+              onClick={(e) => {
+                signIn('github');
+              }}
+            >
+              Login
+            </Button>
             <div className="border-b-2 border-brand-darker mt-5 pb-2">
               <p className="text-xl">What a dope site!</p>
               <p className="text-sm">
