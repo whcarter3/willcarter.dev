@@ -61,7 +61,13 @@ export default function Home() {
           <h1
             className={`text-2xl lg:text-[2.5rem] text-brand-darker text-center lg:text-left leading-snug font-heading`}
           >
-            Hello! <br className="lg:hidden" />
+            <Link
+              href="/contact"
+              className="border-b-2 border-brand-darker font-heading"
+            >
+              Hello!
+            </Link>{' '}
+            <br className="lg:hidden" />
             My name is{' '}
             <Link
               href="/about"

@@ -2,29 +2,11 @@ import { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Layout from '@/components/layout';
+import useGradient from '@/hooks/useGradient';
 
 const About = (): JSX.Element => {
-  const [mouseX, setMouseX] = useState(0);
-  const [mouseY, setMouseY] = useState(0);
-  const gradient = `radial-gradient(circle at ${mouseX}px ${mouseY}px, #ffDD4a, #ff9000)`;
-  const buttonRef = useRef<HTMLAnchorElement>(null);
-
-  const handleMouseMove = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    const buttonRect = buttonRef.current?.getBoundingClientRect();
-    if (buttonRect) {
-      setMouseX(e.clientX - buttonRect.left);
-      setMouseY(e.clientY - buttonRect.top);
-    }
-  };
-
-  const handleTouchMove = (
-    e: React.TouchEvent<HTMLAnchorElement>
-  ) => {
-    setMouseX(e.touches[0].clientX);
-    setMouseY(e.touches[0].clientY);
-  };
+  const [gradient, handleMove, ref] =
+    useGradient<HTMLAnchorElement>();
 
   return (
     <Layout>
@@ -45,9 +27,9 @@ const About = (): JSX.Element => {
             style={{ background: gradient }}
             rel="noopener noreferrer"
             target="_blank"
-            ref={buttonRef}
-            onMouseMove={handleMouseMove}
-            onTouchMove={handleTouchMove}
+            ref={ref}
+            onMouseMove={handleMove.onMouseMove}
+            onTouchMove={handleMove.onTouchMove}
           >
             Download My Resume
           </Link>

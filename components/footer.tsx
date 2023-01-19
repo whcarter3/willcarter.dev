@@ -7,6 +7,7 @@ import {
   FaAngellist,
   FaCodepen,
 } from 'react-icons/fa';
+import useGradient from '@/hooks/useGradient';
 
 interface FooterProps {
   className?: string;
@@ -14,25 +15,7 @@ interface FooterProps {
 }
 
 function Footer({ className, home }: FooterProps): JSX.Element {
-  const [mouseX, setMouseX] = useState(0);
-  const [mouseY, setMouseY] = useState(0);
-  const gradient = `radial-gradient(circle at ${mouseX}px ${mouseY}px, #ffDD4a, #ff9000)`;
-  const divRef = useRef<HTMLElement>(null);
-
-  const handleMouseMove = (
-    e: React.MouseEvent<HTMLElement, MouseEvent>
-  ) => {
-    const divRect = divRef.current?.getBoundingClientRect();
-    if (divRect) {
-      setMouseX(e.clientX - divRect.left);
-      setMouseY(e.clientY - divRect.top);
-    }
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLElement>) => {
-    setMouseX(e.touches[0].clientX);
-    setMouseY(e.touches[0].clientY);
-  };
+  const [gradient, handleMove, ref] = useGradient<HTMLDivElement>();
 
   return (
     <IconContext.Provider
@@ -41,9 +24,9 @@ function Footer({ className, home }: FooterProps): JSX.Element {
       <footer
         className={`${className} absolute bottom-0 left-0 w-full flex justify-center py-5`}
         style={{ background: home ? 'transparent' : gradient }}
-        ref={divRef}
-        onMouseMove={handleMouseMove}
-        onTouchMove={handleTouchMove}
+        ref={ref}
+        onMouseMove={handleMove.onMouseMove}
+        onTouchMove={handleMove.onTouchMove}
       >
         <Link
           href="https://github.com/whcarter3"

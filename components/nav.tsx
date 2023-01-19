@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import logoImage from '/public/logo-square.png';
+import useGradient from '@/hooks/useGradient';
 
 interface NavProps {
   className?: string;
@@ -11,34 +12,17 @@ interface NavProps {
 }
 
 function Nav({ className, home }: NavProps): JSX.Element {
-  const [mouseX, setMouseX] = useState(0);
-  const [mouseY, setMouseY] = useState(0);
-  const gradient = `radial-gradient(circle at ${mouseX}px ${mouseY}px, #ffDD4a, #ff9000)`;
-  const divRef = useRef<HTMLElement>(null);
   const router = useRouter();
 
-  const handleMouseMove = (
-    e: React.MouseEvent<HTMLElement, MouseEvent>
-  ) => {
-    const divRect = divRef.current?.getBoundingClientRect();
-    if (divRect) {
-      setMouseX(e.clientX - divRect.left);
-      setMouseY(e.clientY - divRect.top);
-    }
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLElement>) => {
-    setMouseX(e.touches[0].clientX);
-    setMouseY(e.touches[0].clientY);
-  };
+  const [gradient, handleMove, ref] = useGradient<HTMLDivElement>();
 
   return (
     <nav
       className={`${className} px-5 py-5 w-full fixed top-0 left-0 z-10`}
       style={{ background: home ? 'transparent' : gradient }}
-      ref={divRef}
-      onMouseMove={handleMouseMove}
-      onTouchMove={handleTouchMove}
+      ref={ref}
+      onMouseMove={handleMove.onMouseMove}
+      onTouchMove={handleMove.onTouchMove}
     >
       <div className="max-w-[1250px] flex justify-between items-center mx-auto">
         <Link href="/">
