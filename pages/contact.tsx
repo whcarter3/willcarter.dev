@@ -12,13 +12,15 @@ const Contact = (): JSX.Element => {
       <Layout>
         <div className="grid grid-cols:1 md:grid-cols-2 gap-16 md:gap-5">
           <div>
-            <h1 className="text-4xl">Drop me a message!</h1>
+            <p className="text-4xl font-heading">Drop me a message</p>
             <ContactForm />
           </div>
           <div>
-            <h1 className="text-4xl mb-5">Sign the guestbook!</h1>
+            <p className="text-4xl font-heading mb-5">
+              Sign the guestbook
+            </p>
             <p className="text-2xl">
-              You must authenticate with Github to sign the guestbook!
+              You must authenticate with Github to sign the guestbook.
             </p>
             <Button className="mt-3">Login</Button>
             <div className="border-b-2 border-brand-darker mt-5 pb-2">
