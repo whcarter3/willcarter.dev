@@ -1,4 +1,5 @@
 import { useSession, signIn, signOut } from 'next-auth/react';
+import Link from 'next/link';
 import Layout from '@/components/layout';
 import ContactForm from '@/components/contactForm';
 import useGradient from '@/hooks/useGradient';
@@ -29,7 +30,7 @@ const Contact = (): JSX.Element => {
                   You must authenticate with Github to sign the
                   guestbook.
                 </p>
-                <a
+                <Link
                   href="/api/auth/signin"
                   className="mt-3 button inline-block"
                   onClick={(e) => {
@@ -42,7 +43,7 @@ const Contact = (): JSX.Element => {
                   style={{ background: gradient }}
                 >
                   Login
-                </a>
+                </Link>
               </div>
             ) : (
               <p className="text-2xl">
