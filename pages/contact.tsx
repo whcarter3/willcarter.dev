@@ -17,7 +17,7 @@ const Contact = (): JSX.Element => {
       >
         <div className="grid grid-cols:1 md:grid-cols-2 gap-16 md:gap-5">
           <div>
-            <p className="text-4xl font-heading">Send me a message</p>
+            <p className="text-4xl font-heading">Drop me a message</p>
             <ContactForm />
           </div>
           <div>
