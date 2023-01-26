@@ -8,6 +8,15 @@ interface User {
   image?: string;
 }
 
+interface Entry {
+  id: number;
+  email: string;
+  body: string;
+  created_by: string;
+  created_at: Date;
+  updated_at: Date;
+}
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -20,7 +29,7 @@ export default async function handler(
     });
 
     return res.json(
-      entries.map((entry) => ({
+      entries.map((entry: Entry) => ({
         id: entry.id,
         body: entry.body,
         created_by: entry.created_by,
