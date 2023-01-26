@@ -6,6 +6,7 @@ import { FaGithub } from 'react-icons/fa';
 import fetcher from '@/lib/fetcher';
 import useGradient from '@/hooks/useGradient';
 import Button from '@/components/button';
+const Filter = require('bad-words');
 
 enum Form {
   Initial,
@@ -92,6 +93,7 @@ function GuestbookEntry({ entry, user }: GuestbookEntryProps) {
 export default function Guestbook({ fallbackData }: GuestbookProps) {
   const { data: session } = useSession();
   const { mutate } = useSWRConfig();
+  const filter = new Filter();
   const [form, setForm] = useState<FormState>({
     state: Form.Initial,
   });
@@ -112,6 +114,14 @@ export default function Guestbook({ fallbackData }: GuestbookProps) {
 
     //this is to prevent inputEl.current.value from being null
     if (inputEl.current) {
+      //this is to prevent the user from entering bad words
+      if (filter.isProfane(inputEl.current.value)) {
+        setForm({
+          state: Form.Error,
+          message: 'Profanity is not allowed',
+        });
+        return;
+      }
       const res = await fetch('/api/guestbook', {
         body: JSON.stringify({
           body: inputEl.current.value,
