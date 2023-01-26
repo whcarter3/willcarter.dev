@@ -13,6 +13,7 @@
     color: theme("colors.brand.darker");
   }
 
+  /* this class is the same as a tailwind class, but is added because for some reason it prevents this specific font from appearing unloaded */
   .font-heading {
     font-family: theme("fontFamily.heading");
   }
