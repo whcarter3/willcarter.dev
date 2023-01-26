@@ -1,12 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 import { prisma } from '@/lib/prisma';
-
-interface User {
-  name?: string;
-  email?: string;
-  image?: string;
-}
+import { User } from '@/lib/types';
 
 export default async function handler(
   req: NextApiRequest,
