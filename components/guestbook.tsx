@@ -6,6 +6,7 @@ import { FaGithub } from 'react-icons/fa';
 import fetcher from '@/lib/fetcher';
 import useGradient from '@/hooks/useGradient';
 import Button from '@/components/button';
+import { Entry } from '@/lib/types';
 const Filter = require('bad-words');
 
 enum Form {
@@ -20,14 +21,6 @@ type FormState = {
   message?: string;
 };
 
-interface Entry {
-  body: string;
-  id: string;
-  created_by: string;
-  created_at?: string;
-  updated_at?: string;
-}
-
 interface User {
   name?: string | null | undefined;
   email?: string | null | undefined;
@@ -35,12 +28,7 @@ interface User {
 }
 
 interface GuestbookProps {
-  fallbackData: {
-    body: string;
-    id: string;
-    created_by: string;
-    updated_at: string;
-  }[];
+  fallbackData: Entry[];
 }
 
 interface GuestbookEntryProps {
@@ -209,19 +197,13 @@ export default function Guestbook({ fallbackData }: GuestbookProps) {
       </p>
 
       <div className="mt-5">
-        {entries?.map(
-          (entry: {
-            body: string;
-            id: string;
-            created_by: string;
-          }) => (
-            <GuestbookEntry
-              key={entry.id}
-              entry={entry}
-              user={session?.user}
-            />
-          )
-        )}
+        {entries?.map((entry: Entry) => (
+          <GuestbookEntry
+            key={entry.id}
+            entry={entry}
+            user={session?.user}
+          />
+        ))}
       </div>
     </>
   );

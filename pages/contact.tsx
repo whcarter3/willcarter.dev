@@ -1,30 +1,13 @@
-import { useSession, signIn, signOut } from 'next-auth/react';
-import Link from 'next/link';
-import useGradient from '@/hooks/useGradient';
 import Layout from '@/components/layout';
 import ContactForm from '@/components/contactForm';
 import Guestbook from '@/components/guestbook';
 import { prisma } from '@/lib/prisma';
-
-interface GuestbookProps {
-  id: string;
-  body: string;
-  created_by: string;
-  created_at: string;
-  updated_at: string;
-}
-
-interface Entry {
-  id: string;
-  body: string;
-  created_by: string;
-  updated_at: string;
-}
+import { Entry } from '@/lib/types';
 
 const Contact = ({
   fallbackData,
 }: {
-  fallbackData: GuestbookProps[];
+  fallbackData: Entry[];
 }): JSX.Element => {
   return (
     <>
@@ -58,7 +41,7 @@ export async function getStaticProps() {
     },
   });
 
-  const fallbackData = entries.map((entry: any) => ({
+  const fallbackData = entries.map((entry: Entry) => ({
     id: entry.id.toString(),
     body: entry.body,
     created_by: entry.created_by.toString(),
