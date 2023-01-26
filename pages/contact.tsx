@@ -10,6 +10,7 @@ interface GuestbookProps {
   id: string;
   body: string;
   created_by: string;
+  created_at: string;
   updated_at: string;
 }
 
@@ -57,11 +58,12 @@ export async function getStaticProps() {
     },
   });
 
-  const fallbackData = entries.map((entry: any) => ({
+  const fallbackData = entries.map((entry) => ({
     id: entry.id.toString(),
     body: entry.body,
     created_by: entry.created_by.toString(),
     created_at: entry.created_at.toISOString(),
+    updated_at: entry.updated_at.toISOString(),
   }));
 
   return {
