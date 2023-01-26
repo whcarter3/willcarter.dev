@@ -13,19 +13,19 @@
     color: theme("colors.brand.darker");
   }
 
-  .contact-form {
+  .styled-form {
     @apply grid grid-cols-1 gap-6 mt-5;
   }
 
-  .conact-form label {
+  .styled-form label {
     @apply block;
   }
 
-  .contact-form label span {
+  .styled-form label span {
     @apply font-heading block mb-1 text-brand-darker;
   }
 
-  .contact-form input, .contact-form textarea {
+  .styled-form input, .styled-form textarea {
     @apply block w-full py-2 px-3 border-2 border-brand-darker rounded-md focus:border-brand-yellow focus:outline-none focus:shadow-md;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }

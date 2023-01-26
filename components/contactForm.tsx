@@ -27,7 +27,7 @@ function ContactForm(): JSX.Element {
     <form
       name="contact-form"
       onSubmit={handleSubmit}
-      className="contact-form md:max-w-md"
+      className="styled-form md:max-w-md"
     >
       <div>
         <label htmlFor="full-name">

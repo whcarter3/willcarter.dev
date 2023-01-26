@@ -1,8 +1,9 @@
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
+import useGradient from '@/hooks/useGradient';
 import Layout from '@/components/layout';
 import ContactForm from '@/components/contactForm';
-import useGradient from '@/hooks/useGradient';
+import Guestbook from '@/components/guestbook';
 
 const Contact = (): JSX.Element => {
   const { data: session } = useSession();
@@ -24,7 +25,8 @@ const Contact = (): JSX.Element => {
             <p className="text-4xl font-heading mb-5">
               Sign the guestbook
             </p>
-            {!session ? (
+            <Guestbook fallbackData={{}} />
+            {/* {!session ? (
               <div>
                 <p className="text-2xl">
                   You must authenticate with Github to sign the
@@ -64,7 +66,7 @@ const Contact = (): JSX.Element => {
                 <span className="italic">Anonymous </span> | 17 Jan
                 2022 @ 12:59 am
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </Layout>
