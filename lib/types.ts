@@ -3,8 +3,8 @@ export interface Entry {
   email?: string;
   body: string;
   created_by: string;
-  created_at: Date;
-  updated_at: Date;
+  created_at: Date | string;
+  updated_at: Date | string;
 }
 
 export interface User {

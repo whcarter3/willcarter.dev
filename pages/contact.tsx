@@ -43,10 +43,11 @@ export async function getStaticProps() {
 
   const fallbackData = entries.map((entry: Entry) => ({
     id: entry.id.toString(),
+    email: entry.email,
     body: entry.body,
-    created_by: entry.created_by.toString(),
-    created_at: entry.created_at.toISOString(),
-    updated_at: entry.updated_at.toISOString(),
+    created_by: entry.created_by,
+    created_at: entry.created_at,
+    updated_at: entry.updated_at,
   }));
 
   return {
