@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import useGradient from '@/hooks/useGradient';
+import classNames from 'classnames';
 
 interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,7 +17,7 @@ const Button = ({
     useGradient<HTMLButtonElement>();
   return (
     <button
-      className={`button ${className}`}
+      className={classNames(className && className, 'button w-fit')}
       style={{ background: gradient }}
       onMouseMove={handleMove.onMouseMove}
       onTouchMove={handleMove.onTouchMove}

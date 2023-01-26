@@ -14,7 +14,7 @@
   }
 
   .styled-form {
-    @apply grid grid-cols-1 gap-6 mt-5;
+    @apply grid grid-cols-1 gap-4;
   }
 
   .styled-form label {

@@ -89,7 +89,6 @@ function ContactForm(): JSX.Element {
       />
       <Button
         type="submit"
-        className="button"
         value="Submit"
         disabled={state.submitting}
       >

@@ -1,8 +1,8 @@
 import React, { useState, useRef, MouseEventHandler } from 'react';
 import { format } from 'date-fns';
 import { signIn, useSession } from 'next-auth/react';
-import { User } from 'next-auth';
 import useSWR, { useSWRConfig } from 'swr';
+import { FaGithub } from 'react-icons/fa';
 import fetcher from '@/lib/fetcher';
 import useGradient from '@/hooks/useGradient';
 import Button from '@/components/button';
@@ -19,13 +19,32 @@ type FormState = {
   message?: string;
 };
 
+interface Entry {
+  body: string;
+  id: string;
+  created_by: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+interface User {
+  name?: string | null | undefined;
+  email?: string | null | undefined;
+  image?: string | null | undefined;
+}
+
 interface GuestbookProps {
-  fallbackData: {};
+  fallbackData: {
+    body: string;
+    id: string;
+    created_by: string;
+    updated_at: string;
+  }[];
 }
 
 interface GuestbookEntryProps {
-  entry: { body: string; id: string; created_by: string };
-  user: User;
+  entry: Entry;
+  user: User | null | undefined;
 }
 
 function GuestbookEntry({ entry, user }: GuestbookEntryProps) {
@@ -40,22 +59,32 @@ function GuestbookEntry({ entry, user }: GuestbookEntryProps) {
 
   return (
     <div className="border-b-2 border-brand-darker mt-5 pb-3 px-1">
-      <p className="text-xl">{entry.body}</p>
+      <p>{entry.body}</p>
       <p className="text-sm">
-        <span className="italic">{entry.created_by}</span> |{' '}
-        {format(new Date(), "d MMM yyyy '@' h:mm bb")}
+        {`${entry.created_by} | ${
+          entry.updated_at
+            ? format(
+                new Date(entry.updated_at),
+                "d MMM yyyy '@' h:mm aaa"
+              )
+            : ''
+        }`}
+
+        {user && entry.created_by === user.name && (
+          <>
+            <span className="text-gray-200 dark:text-gray-800">
+              {' '}
+              |{' '}
+            </span>
+            <button
+              className="text-sm text-red-600 dark:text-red-400"
+              onClick={deleteEntry}
+            >
+              Delete
+            </button>
+          </>
+        )}
       </p>
-      {user && entry.created_by === user.name && (
-        <>
-          <span className="text-gray-200 dark:text-gray-800">/</span>
-          <button
-            className="text-sm text-red-600 dark:text-red-400"
-            onClick={deleteEntry}
-          >
-            Delete
-          </button>
-        </>
-      )}
     </div>
   );
 }
@@ -67,9 +96,13 @@ export default function Guestbook({ fallbackData }: GuestbookProps) {
     state: Form.Initial,
   });
   const inputEl = useRef<HTMLInputElement>(null);
-  const { data: entries } = useSWR('/api/guestbook', fetcher, {
-    fallbackData,
-  });
+  const { data: entries } = useSWR<Entry[]>(
+    '/api/guestbook',
+    fetcher,
+    {
+      fallbackData,
+    }
+  );
   const [gradient, handleMove, ref] =
     useGradient<HTMLAnchorElement>();
 
@@ -77,6 +110,7 @@ export default function Guestbook({ fallbackData }: GuestbookProps) {
     e.preventDefault();
     setForm({ state: Form.Loading });
 
+    //this is to prevent inputEl.current.value from being null
     if (inputEl.current) {
       const res = await fetch('/api/guestbook', {
         body: JSON.stringify({
@@ -103,30 +137,41 @@ export default function Guestbook({ fallbackData }: GuestbookProps) {
         state: Form.Success,
         message: 'Thanks for signing the guestbook!',
       });
+    } else {
+      setForm({
+        state: Form.Error,
+        message: 'Something went wrong',
+      });
     }
   };
 
   return (
     <>
-      <p className="text-xl">
-        Leave a message for future visitors of the site!
+      <p className="font-heading mb-1">
+        Leave a message for future visitors
       </p>
       {!session && (
         <div>
           <Button
-            className="mt-3 button"
             onClick={(e) => {
               e.preventDefault();
               signIn('github');
             }}
           >
+            <FaGithub className="inline-block w-5 h-5 mr-2" />
             Login
           </Button>
-          <p className="mt-2">
-            You must authenticate with Github to sign the guestbook.
-          </p>
-          <p>We only use your name and email to identify you.</p>
         </div>
+      )}
+      {form.state === Form.Error && (
+        <p className="my-2 text-red-600 dark:text-red-400">
+          {form.message}
+        </p>
+      )}
+      {form.state === Form.Success && (
+        <p className="my-2 text-green-600 dark:text-green-400">
+          {form.message}
+        </p>
       )}
 
       {session?.user && (
@@ -136,46 +181,38 @@ export default function Guestbook({ fallbackData }: GuestbookProps) {
             name="entry"
             required
             ref={inputEl}
-            placeholder="Leave a message..."
+            placeholder="Your message here..."
           />
           <Button
             type="submit"
-            className="button"
             disabled={form.state === Form.Loading}
           >
             {form.state === Form.Loading
               ? 'Loading...'
               : 'Sign Guestbook'}
           </Button>
-          {form.state === Form.Error && (
-            <p className="mt-2 text-red-600 dark:text-red-400">
-              {form.message}
-            </p>
-          )}
-          {form.state === Form.Success && (
-            <p className="mt-2 text-green-600 dark:text-green-400">
-              {form.message}
-            </p>
-          )}
         </form>
       )}
+      <p className="mt-2">
+        Your information is only used to display your name and reply
+        by email.
+      </p>
 
-      <GuestbookEntry
-        entry={{
-          body: 'This is a test entry',
-          created_by: 'Michael J. Fox',
-          id: 'testid',
-        }}
-        user={{ name: 'test', id: 'someid' }}
-      />
-      <GuestbookEntry
-        entry={{
-          body: 'Boy Morty, you sure are a smart one. You know, I bet you could even figure out what this is.',
-          created_by: 'Rick Sanchez',
-          id: 'testid',
-        }}
-        user={{ name: 'test', id: 'someid' }}
-      />
+      <div className="mt-5">
+        {entries?.map(
+          (entry: {
+            body: string;
+            id: string;
+            created_by: string;
+          }) => (
+            <GuestbookEntry
+              key={entry.id}
+              entry={entry}
+              user={session?.user}
+            />
+          )
+        )}
+      </div>
     </>
   );
 }
