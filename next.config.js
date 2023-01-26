@@ -3,7 +3,4 @@ const nextConfig = {
   reactStrictMode: true,
 };
 
-module.exports = {
-  nextConfig,
-  optimizeFonts: false,
-};
+module.exports = nextConfig;

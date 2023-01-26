@@ -13,6 +13,10 @@
     color: theme("colors.brand.darker");
   }
 
+  .font-heading {
+    font-family: theme("fontFamily.heading");
+  }
+
   .styled-form {
     @apply grid grid-cols-1 gap-4;
   }
