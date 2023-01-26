@@ -5,9 +5,15 @@ import Layout from '@/components/layout';
 import ContactForm from '@/components/contactForm';
 import Guestbook from '@/components/guestbook';
 import { prisma } from '@/lib/prisma';
-import { Entry } from '@/lib/types';
 
 interface GuestbookProps {
+  id: string;
+  body: string;
+  created_by: string;
+  updated_at: string;
+}
+
+interface Entry {
   id: string;
   body: string;
   created_by: string;
@@ -19,10 +25,6 @@ const Contact = ({
 }: {
   fallbackData: GuestbookProps[];
 }): JSX.Element => {
-  const { data: session } = useSession();
-  const [gradient, handleMove, ref] =
-    useGradient<HTMLAnchorElement>();
-
   return (
     <>
       <Layout
@@ -55,11 +57,11 @@ export async function getStaticProps() {
     },
   });
 
-  const fallbackData = entries.map((entry: Entry) => ({
+  const fallbackData = entries.map((entry) => ({
     id: entry.id.toString(),
     body: entry.body,
     created_by: entry.created_by.toString(),
-    created_at: entry.created_at?.toISOString(),
+    created_at: entry.created_at.toISOString(),
   }));
 
   return {
