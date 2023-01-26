@@ -46,8 +46,8 @@ export async function getStaticProps() {
     email: entry.email,
     body: entry.body,
     created_by: entry.created_by,
-    created_at: entry.created_at,
-    updated_at: entry.updated_at,
+    created_at: entry.created_at.toString(),
+    updated_at: entry.updated_at.toString(),
   }));
 
   return {
