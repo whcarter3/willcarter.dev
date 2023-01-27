@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 
 type RadialGradientProps = {
   className?: string;
@@ -29,7 +30,12 @@ function RadialGradient({
     <div
       onMouseMove={handleMouseMove}
       onTouchMove={handleTouchMove}
-      className={`w-screen h-screen ${className}`}
+      className={
+        classNames(
+          className && className,
+          'w-screen h-screen'
+        ) as string
+      }
     >
       <div
         className="w-full h-full pl-5 pt-3"

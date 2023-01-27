@@ -63,7 +63,7 @@ export default function Home() {
           >
             <Link
               href="/contact"
-              className="border-b-2 border-brand-darker font-heading"
+              className="border-b-2 border-brand-darker font-heading hover-shadow"
             >
               Hello!
             </Link>{' '}
@@ -71,7 +71,7 @@ export default function Home() {
             My name is{' '}
             <Link
               href="/about"
-              className="border-b-2 border-brand-darker font-heading"
+              className="border-b-2 border-brand-darker font-heading hover-shadow"
             >
               Will Carter
             </Link>

@@ -54,4 +54,14 @@
   .layout {
     min-height: calc(100vh - 259px);
   }
+
+  .hover-shadow:hover {
+    text-shadow: 2px 2px 2px rgb(75, 75, 75, 0.75);
+    border-color: rgba(0, 0, 0, 0);
+    transition: all ease 0.3s;
+  }
+  .filter-shadow:hover {
+    filter: drop-shadow(2px 2px 2px rgb(75, 75, 75, 0.75));
+    transition: all ease 0.3s;
+  }
 }

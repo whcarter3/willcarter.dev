@@ -11,6 +11,12 @@ interface NavProps {
   home?: boolean;
 }
 
+const links = [
+  { href: '/works', label: 'Works' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+];
+
 function Nav({ className, home }: NavProps): JSX.Element {
   const router = useRouter();
 
@@ -34,36 +40,19 @@ function Nav({ className, home }: NavProps): JSX.Element {
           />
         </Link>
         <div>
-          <Link
-            href="/works"
-            className={classNames(
-              'font-heading mx:text-xl mr-5 pb-1',
-              router.pathname === '/works' &&
-                'border-b-2 border-brand-darker'
-            )}
-          >
-            Works
-          </Link>
-          <Link
-            href="/about"
-            className={classNames(
-              'font-heading mx:text-xl mr-5 pb-1',
-              router.pathname === '/about' &&
-                'border-b-2 border-brand-darker'
-            )}
-          >
-            About
-          </Link>
-          <Link
-            href="/contact"
-            className={classNames(
-              'font-heading mx:text-xl mr-5 pb-1',
-              router.pathname === '/contact' &&
-                'border-b-2 border-brand-darker'
-            )}
-          >
-            Contact
-          </Link>
+          {links.map(({ href, label }) => (
+            <Link
+              key={label}
+              href={href}
+              className={classNames(
+                'font-heading md:text-xl mr-5 pb-1 hover-shadow',
+                router.pathname === href &&
+                  'border-b-2 border-brand-darker'
+              )}
+            >
+              {label}
+            </Link>
+          ))}
         </div>
       </div>
     </nav>
