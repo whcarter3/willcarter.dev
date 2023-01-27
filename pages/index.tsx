@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import Head from 'next/head';
-import Image from 'next/image';
 import Link from 'next/link';
 import { TypeAnimation } from 'react-type-animation';
 import RadialGradient from '@/components/radialGradient';
@@ -81,29 +80,25 @@ export default function Home() {
               // Same String at the start will only be typed once, initially
               sequence={[
                 'and I am a Frontend engineer.',
-                1000,
-                'and I am a React developer.',
-                1000,
+                800,
                 'and I am an accessibility advocate.',
-                1000,
+                600,
                 'and I am a perfexoinst.',
-                420,
+                320,
                 'and I am a perfectionist.',
-                1000,
+                800,
                 'and I am a father.',
-                1000,
+                420,
                 'and I am a gamer.',
-                1000,
+                420,
                 'and I am a disc golfer.',
-                1000,
-                'and I am a fantasy football nerd.',
-                1000,
+                420,
                 'and I am a Frontend engineer.',
-                1000,
+                420,
               ]}
               speed={35} // Custom Speed from 1-99 - Default Speed: 40
               wrapper="span" // Animation will be rendered as a <span>
-              deletionSpeed={70}
+              deletionSpeed={80}
             />
           </h1>
         </div>

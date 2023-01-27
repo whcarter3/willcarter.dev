@@ -12,7 +12,7 @@ function RadialGradient({
 }: RadialGradientProps): JSX.Element {
   const [mouseX, setMouseX] = useState(0);
   const [mouseY, setMouseY] = useState(0);
-  const gradient = `radial-gradient(circle at ${mouseX}px ${mouseY}px, #ffDD4a, #ff9000)`;
+  const gradient = `radial-gradient(circle at ${mouseX}px ${mouseY}px, rgb(255, 221, 74), rgb(255, 144, 0))`;
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
