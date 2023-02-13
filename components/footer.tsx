@@ -14,6 +14,25 @@ interface FooterProps {
   home?: boolean;
 }
 
+const footerLinks = [
+  {
+    href: 'https://github.com/whcarter3',
+    icon: <FaGithub />,
+  },
+  {
+    href: 'https://www.linkedin.com/in/carterthethird/',
+    icon: <FaLinkedinIn />,
+  },
+  {
+    href: 'https://angel.co/u/whc-tre',
+    icon: <FaAngellist />,
+  },
+  {
+    href: 'https://codepen.io/carterthethird',
+    icon: <FaCodepen />,
+  },
+];
+
 function Footer({ className, home }: FooterProps): JSX.Element {
   const [gradient, handleMove, ref] = useGradient<HTMLDivElement>();
 
@@ -28,34 +47,16 @@ function Footer({ className, home }: FooterProps): JSX.Element {
         onMouseMove={handleMove.onMouseMove}
         onTouchMove={handleMove.onTouchMove}
       >
-        <Link
-          href="https://github.com/whcarter3"
-          target={'_blank'}
-          className="mr-5"
-        >
-          <FaGithub />
-        </Link>
-        <Link
-          href="https://linkedin.com/in/carterthethird"
-          target={'_blank'}
-          className="mr-5"
-        >
-          <FaLinkedinIn />
-        </Link>
-        <Link
-          href="https://angel.co/u/whc_tre"
-          target={'_blank'}
-          className="mr-5"
-        >
-          <FaAngellist />
-        </Link>
-        <Link
-          href="https://codepen.io/carterthethird"
-          target={'_blank'}
-          className="mr-5"
-        >
-          <FaCodepen />
-        </Link>
+        {footerLinks.map(({ href, icon }) => (
+          <Link
+            key={href}
+            href={href}
+            target={'_blank'}
+            className="mr-5 filter-shadow"
+          >
+            {icon}
+          </Link>
+        ))}
       </footer>
     </IconContext.Provider>
   );

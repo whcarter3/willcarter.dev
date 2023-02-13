@@ -11,15 +11,15 @@ function ContactForm(): JSX.Element {
         <p className="my-5 text-xl">
           Here&apos;s a random youtube video for you:
         </p>
-        <iframe
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+        <div className="aspect-[16/9]">
+          <iframe
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+          ></iframe>
+        </div>
       </>
     );
   }
@@ -27,7 +27,7 @@ function ContactForm(): JSX.Element {
     <form
       name="contact-form"
       onSubmit={handleSubmit}
-      className="contact-form md:max-w-md"
+      className="styled-form md:max-w-md"
     >
       <div>
         <label htmlFor="full-name">
@@ -89,7 +89,6 @@ function ContactForm(): JSX.Element {
       />
       <Button
         type="submit"
-        className="button"
         value="Submit"
         disabled={state.submitting}
       >

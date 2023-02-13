@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prepare": "npx prisma generate",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -11,10 +12,13 @@
   "dependencies": {
     "@formspree/react": "^2.4.1",
     "@next/font": "13.1.2",
+    "@prisma/client": "^4.9.0",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.10",
+    "bad-words": "^3.0.4",
     "classnames": "^2.3.2",
+    "date-fns": "^2.29.3",
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.2",
     "next": "13.1.2",
@@ -23,10 +27,12 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
     "react-type-animation": "^2.1.2",
+    "swr": "^2.0.1",
     "typescript": "4.9.4"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
+    "@types/react-slick": "^0.23.10",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.4"

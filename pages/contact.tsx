@@ -1,14 +1,14 @@
-import { useSession, signIn, signOut } from 'next-auth/react';
-import Link from 'next/link';
 import Layout from '@/components/layout';
 import ContactForm from '@/components/contactForm';
-import useGradient from '@/hooks/useGradient';
+import Guestbook from '@/components/guestbook';
+import { prisma } from '@/lib/prisma';
+import { Entry } from '@/lib/types';
 
-const Contact = (): JSX.Element => {
-  const { data: session } = useSession();
-  const [gradient, handleMove, ref] =
-    useGradient<HTMLAnchorElement>();
-
+const Contact = ({
+  fallbackData,
+}: {
+  fallbackData: Entry[];
+}): JSX.Element => {
   return (
     <>
       <Layout
@@ -17,59 +17,45 @@ const Contact = (): JSX.Element => {
       >
         <div className="grid grid-cols:1 md:grid-cols-2 gap-16 md:gap-5">
           <div>
-            <p className="text-4xl font-heading">Drop me a message</p>
+            <p className="text-4xl font-heading mb-5">
+              Drop me a message
+            </p>
             <ContactForm />
           </div>
           <div>
             <p className="text-4xl font-heading mb-5">
               Sign the guestbook
             </p>
-            {!session ? (
-              <div>
-                <p className="text-2xl">
-                  You must authenticate with Github to sign the
-                  guestbook.
-                </p>
-                <Link
-                  href="/api/auth/signin"
-                  className="mt-3 button inline-block"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    signIn('github');
-                  }}
-                  ref={ref}
-                  onMouseMove={handleMove.onMouseMove}
-                  onTouchMove={handleMove.onTouchMove}
-                  style={{ background: gradient }}
-                >
-                  Login
-                </Link>
-              </div>
-            ) : (
-              <p className="text-2xl">
-                You are signed in as {session.user?.name}
-                <button
-                  className="button"
-                  onClick={() => {
-                    signOut();
-                  }}
-                >
-                  Sign Out
-                </button>
-              </p>
-            )}
-            <div className="border-b-2 border-brand-darker mt-5 pb-2">
-              <p className="text-xl">What a dope site!</p>
-              <p className="text-sm">
-                <span className="italic">Anonymous </span> | 17 Jan
-                2022 @ 12:59 am
-              </p>
-            </div>
+            <Guestbook fallbackData={fallbackData} />
           </div>
         </div>
       </Layout>
     </>
   );
 };
+
+export async function getStaticProps() {
+  const entries = await prisma.guestbook.findMany({
+    orderBy: {
+      updated_at: 'desc',
+    },
+  });
+
+  const fallbackData = entries.map((entry: Entry) => ({
+    id: entry.id.toString(),
+    email: entry.email,
+    body: entry.body,
+    created_by: entry.created_by,
+    created_at: entry.created_at.toString(),
+    updated_at: entry.updated_at.toString(),
+  }));
+
+  return {
+    props: {
+      fallbackData,
+    },
+    revalidate: 60,
+  };
+}
 
 export default Contact;
