@@ -45,7 +45,7 @@ const About = (): JSX.Element => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-14">
           <div className="col-span-1">
             <Image
-              src="/images/will-carter.jpeg"
+              src="/images/me-square.jpeg"
               alt="Will Carter"
               className="rounded-md mb-5"
               width={500}

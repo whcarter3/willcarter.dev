@@ -30,11 +30,11 @@ const Card = ({
       style={{ background: gradient }}
       onMouseMove={handleMove.onMouseMove}
       onTouchMove={handleMove.onTouchMove}
-      className="card rounded-md flex"
+      className="card rounded-md flex flex-col md:flex-row"
     >
       <div
         className={classNames(
-          reverse ? 'order-2' : 'order-1',
+          reverse ? 'md:order-2' : 'md:order-1',
           'shrink-0'
         )}
       >
@@ -46,17 +46,21 @@ const Card = ({
           className={classNames(
             'rounded-md',
             className,
-            reverse ? 'ml-5' : 'mr-5'
+            reverse ? 'md:ml-5' : 'md:mr-5'
           )}
         />
         <div
           className={classNames(
-            'flex flex-col',
-            reverse ? 'items-end' : 'items-start'
+            'flex md:flex-col',
+            reverse ? 'md:items-end' : 'items-start',
+            'mb-2 mt-1 md:mb-0 md:mt-0'
           )}
         >
           <h3 className="text-2xl">{title}</h3>
-          <Link href={link} className="hover-shadow">
+          <Link
+            href={link}
+            className="hover-shadow ml-3 mt-2 md:ml-0 md:mt-0"
+          >
             <FaLinkedin />
           </Link>
         </div>
