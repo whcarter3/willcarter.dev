@@ -12,7 +12,7 @@ interface NavProps {
 }
 
 const links = [
-  { href: '/works', label: 'Works' },
+  { href: '/resume', label: 'Resume' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -37,6 +37,7 @@ function Nav({ className, home }: NavProps): JSX.Element {
             width={75}
             height={75}
             alt="Will Carter Dev Logo"
+            priority
           />
         </Link>
         <div>
