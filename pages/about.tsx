@@ -51,18 +51,6 @@ const About = (): JSX.Element => {
               width={500}
               height={500}
             />
-            <Link
-              href="will-carter-resume.pdf"
-              className="button inline-block"
-              style={{ background: gradient }}
-              rel="noopener noreferrer"
-              target="_blank"
-              ref={ref}
-              onMouseMove={handleMove.onMouseMove}
-              onTouchMove={handleMove.onTouchMove}
-            >
-              Download My Resume
-            </Link>
           </div>
           <div className="col-span-2">
             <h1 className="text-4xl mb-3">About me</h1>
