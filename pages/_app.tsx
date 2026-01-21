@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import '@/styles/letter-animation.css';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { PT_Mono, Source_Sans_Pro } from '@next/font/google';

@@ -1,0 +1,208 @@
+:root {
+  --letter-bg-color: white;
+  --letter-bg-color-darkened: #f2f2f2;
+}
+
+.grid {
+  list-style: none;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.grid li {
+  position: relative;
+  float: left;
+  font-size: 8em;
+  line-height: 1;
+  max-height: 290px;
+  text-align: center;
+  width: calc(100% / 7);
+}
+
+.grid li span {
+  display: inline-block;
+  font-weight: 900;
+  font-family: 'Lato', sans-serif;
+  line-height: 1;
+  position: relative;
+  color: rgba(0, 200, 255, 0.6);
+  transform-style: preserve-3d;
+  perspective: 550px;
+  z-index: 1;
+}
+
+.grid li span:before,
+.grid li span:after {
+  position: absolute;
+  content: attr(data-letter);
+  line-height: inherit;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  transition: all 0.3s;
+}
+
+.grid li span:before {
+  text-shadow: none;
+  color: hsla(0, 0%, 0%, 0.12);
+}
+
+/* Left letter effect */
+.ot-letter-left {
+  background: var(--letter-bg-color);
+}
+
+.ot-letter-left:hover span:before {
+  transform: scale(0.85, 1) skew(0deg, 20deg);
+}
+
+.ot-letter-left:hover span:after {
+  transform: rotateY(-40deg);
+}
+
+.ot-letter-left span {
+  text-shadow: 1px 4px 6px var(--letter-bg-color),
+    0 0 0 hsla(0, 0%, 0%, 0.3),
+    1px 4px 6px var(--letter-bg-color);
+}
+
+.ot-letter-left span:before,
+.ot-letter-left span:after {
+  transform-origin: 0 50%;
+}
+
+.ot-letter-left span:before {
+  transform: scale(1.08, 1) skew(0deg, 1deg);
+}
+
+.ot-letter-left span:after {
+  color: var(--letter-bg-color);
+  text-shadow: -1px 0px 0px hsla(360, 100%, 100%, 0.1),
+    3px 0px 1px hsla(0, 0%, 0%, 0.4);
+  transform: rotateY(-15deg);
+}
+
+.ot-letter-left:hover span:after {
+  color: var(--letter-bg-color-darkened);
+}
+
+/* Bottom letter effect */
+.ot-letter-bottom {
+  background: var(--letter-bg-color);
+}
+
+.ot-letter-bottom:hover span:before {
+  transform: translateY(-0.050em) scale(1, 0.65) skew(-10deg, 0deg);
+}
+
+.ot-letter-bottom:hover span:after {
+  transform: translateY(-0.035em) rotateX(-40deg);
+}
+
+.ot-letter-bottom span {
+  text-shadow: 1px 4px 6px var(--letter-bg-color),
+    0 0 0 hsla(0, 0%, 0%, 0.3),
+    1px 4px 6px var(--letter-bg-color);
+}
+
+.ot-letter-bottom span:before,
+.ot-letter-bottom span:after {
+  transform-origin: 50% 100%;
+}
+
+.ot-letter-bottom span:before {
+  transform: scale(1, 0.95) skew(-4deg, 0deg);
+}
+
+.ot-letter-bottom span:after {
+  color: var(--letter-bg-color);
+  text-shadow: 0px 1px 0px hsla(360, 100%, 100%, 0.1),
+    0px -3px 1px hsla(0, 0%, 0%, 0.4);
+  transform: rotateX(-15deg);
+}
+
+.ot-letter-bottom:hover span:after {
+  color: var(--letter-bg-color-darkened);
+}
+
+/* Top letter effect */
+.ot-letter-top {
+  background: var(--letter-bg-color);
+}
+
+.ot-letter-top:hover span:before {
+  transform: translateY(-0.035em) scale(1, 1.2) skew(10deg, 0deg);
+}
+
+.ot-letter-top:hover span:after {
+  transform: translateY(0.025em) rotateX(40deg);
+}
+
+.ot-letter-top span {
+  text-shadow: 1px 4px 6px var(--letter-bg-color),
+    0 0 0 hsla(0, 0%, 0%, 0.3),
+    1px 4px 6px var(--letter-bg-color);
+}
+
+.ot-letter-top span:before,
+.ot-letter-top span:after {
+  transform-origin: 50% 0;
+}
+
+.ot-letter-top span:before {
+  transform: scale(1, 1.05) skew(4deg, 0deg);
+}
+
+.ot-letter-top span:after {
+  color: var(--letter-bg-color);
+  text-shadow: 0px -1px 0px hsla(360, 100%, 100%, 0.1),
+    0px 3px 1px hsla(0, 0%, 0%, 0.4);
+  transform: rotateX(15deg);
+}
+
+.ot-letter-top:hover span:after {
+  color: var(--letter-bg-color-darkened);
+}
+
+/* Right letter effect */
+.ot-letter-right {
+  background: var(--letter-bg-color);
+}
+
+.ot-letter-right:hover span:before {
+  transform: scale(0.85, 1) skew(0deg, -20deg);
+}
+
+.ot-letter-right:hover span:after {
+  transform: rotateY(40deg);
+}
+
+.ot-letter-right span {
+  text-shadow: 1px 4px 6px var(--letter-bg-color),
+    0 0 0 hsla(0, 0%, 0%, 0.3),
+    1px 4px 6px var(--letter-bg-color);
+}
+
+.ot-letter-right span:before,
+.ot-letter-right span:after {
+  transform-origin: 100% 50%;
+}
+
+.ot-letter-right span:before {
+  transform: scale(0.95, 1) skew(0deg, 1deg);
+}
+
+.ot-letter-right span:after {
+  color: var(--letter-bg-color);
+  text-shadow: 1px 0px 0px hsla(360, 100%, 100%, 0.1),
+    -3px 0px 1px hsla(0, 0%, 0%, 0.4);
+  transform: rotateY(15deg);
+}
+
+.ot-letter-right:hover span:after {
+  color: var(--letter-bg-color-darkened);
+}
