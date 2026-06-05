@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import useGradient from '@/hooks/useGradient';
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
+import ThemeToggle from '@/components/ThemeToggle';
 
 interface NavProps {
   transparent?: boolean;
@@ -92,6 +93,7 @@ function Nav({ transparent }: NavProps) {
               </Link>
             );
           })}
+          <ThemeToggle variant="menu" />
         </div>
       </div>
     </nav>

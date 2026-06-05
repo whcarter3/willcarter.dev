@@ -2,7 +2,11 @@ import { useState, useCallback, useRef } from 'react';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
 
-export default function ThemeToggle() {
+interface ThemeToggleProps {
+  variant?: 'hero' | 'menu';
+}
+
+export default function ThemeToggle({ variant = 'hero' }: ThemeToggleProps) {
   const { theme, toggleTheme } = useThemeContext();
   const [fading, setFading] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -23,10 +27,14 @@ export default function ThemeToggle() {
     setTimeout(() => setFading(false), dur);
   }, [fading, toggleTheme]);
 
+  const cls = variant === 'menu'
+    ? `theme-toggle-menu${fading ? ' is-fading' : ''}`
+    : `theme-toggle${fading ? ' is-fading' : ''}`;
+
   return (
     <button
       ref={btnRef}
-      className={`theme-toggle${fading ? ' is-fading' : ''}`}
+      className={cls}
       onClick={handleClick}
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
     >

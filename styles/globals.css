@@ -14,7 +14,7 @@
     font-size: var(--text-base);
     line-height: var(--leading-normal);
     -webkit-font-smoothing: antialiased;
-    transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
+    /* Colors transition via @property on :root — no transition needed here */
     margin: 0; padding: 0;
   }
 
@@ -46,9 +46,7 @@
 
   /* Nav */
   .nav {
-    position: sticky; top: 0; z-index: 50;
     background: var(--grad-mood-linear);
-    box-shadow: var(--shadow-md);
   }
   .nav.is-transparent { background: transparent; box-shadow: none; position: absolute; left: 0; right: 0; }
   .nav-inner {
@@ -101,6 +99,20 @@
   .menu-link:hover { background: var(--bg-3); color: var(--accent); }
   .menu-link.is-active { color: var(--accent); }
   .menu-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+  /* Menu-inline theme toggle */
+  .theme-toggle-menu {
+    display: grid; place-items: center;
+    width: 100%; height: 40px;
+    padding: 0; border: none; border-radius: var(--radius-sm);
+    background: transparent; color: var(--fg-1);
+    font-size: 18px;
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+  }
+  .theme-toggle-menu:hover { background: var(--bg-3); color: var(--accent); }
+  .theme-toggle-menu svg { width: 18px; height: 18px; }
+  .theme-toggle-menu.is-fading svg { animation: icon-fade 5000ms var(--ease) forwards; }
 
   .theme-toggle {
     position: fixed; bottom: 64px; left: 50%; transform: translateX(-50%);
@@ -179,9 +191,7 @@
 
   .card {
     background: var(--bg-2);
-    /* border: var(--border-width) solid var(--border-2); */
     border-radius: var(--radius-sm);
-    box-shadow: var(--shadow-sm);
     transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
   }
   .card:hover { box-shadow: var(--shadow-lg); border-color: var(--accent); }
@@ -224,14 +234,14 @@
   .post-date { font-family: var(--font-pt-mono); font-size: var(--text-sm); color: var(--fg-3); padding-top: 4px; }
   .post-row-title {
     font-family: var(--font-pt-mono); font-size: var(--text-xl); color: var(--fg-1);
-    transition: color var(--dur) var(--ease); margin-bottom: 6px;
+    margin-bottom: 6px;
   }
   .post-row-excerpt { color: var(--fg-2); font-size: var(--text-base); margin-bottom: 10px; }
   .post-tags { display: flex; gap: 8px; flex-wrap: wrap; }
 
   .feature-card {
     display: grid; grid-template-columns: 1.1fr 1fr; gap: 0; overflow: hidden;
-    border-radius: var(--radius-sm); box-shadow: var(--shadow-md);
+    border-radius: var(--radius-sm);
   }
   .feature-card .feature-body { padding: 30px; display: flex; flex-direction: column; justify-content: center; background: var(--bg-2); }
   .feature-card .feature-img { background-size: cover; background-position: center; min-height: 260px; }
@@ -274,6 +284,7 @@
   .hero {
     min-height: 100vh; display: flex; align-items: center; justify-content: center;
     padding: 40px;
+    background: var(--grad-mood-card);
   }
   .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--fg-on-sun); line-height: 1.4; max-width: 900px; }
   .hero-link {
