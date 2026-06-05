@@ -1,0 +1,99 @@
+/* ============================================================================
+   Will Carter — Design Tokens
+   Daybreak (light) and Nightfall (dark) themes.
+   Applied via data-theme attribute on <html>.
+   ========================================================================== */
+
+/* ---- Typography (theme-independent) -------------------------------------- */
+:root {
+  --text-xs:        0.75rem;
+  --text-sm:        0.875rem;
+  --text-base:      1rem;
+  --text-lg:        1.125rem;
+  --text-xl:        1.25rem;
+  --text-2xl:       1.5rem;
+  --text-3xl:       1.875rem;
+  --text-4xl:       2.25rem;
+  --leading-tight:  1.25;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+  --tracking-mono:  0.02em;
+
+  --font-heading: var(--font-pt-mono), 'Courier New', monospace;
+  --font-body:    var(--font-source-sans-pro), system-ui, sans-serif;
+  --font-mono:    var(--font-pt-mono), 'Courier New', monospace;
+
+  --border-width: 1px;
+  --radius-sm:    6px;
+  --radius-md:    10px;
+  --radius-pill:  9999px;
+
+  --dur:      300ms;
+  --dur-fast: 150ms;
+  --ease:     cubic-bezier(.4, 0, .2, 1);
+}
+
+/* ---- Daybreak (light) ----------------------------------------------------- */
+[data-theme="light"],
+:root {
+  --bg-1:    #FFF5D6;
+  --bg-2:    #FFFAEC;
+  --bg-3:    #FFF1A6;
+  --bg-inset: #FFF8DE;
+
+  --fg-1:      #094074;
+  --fg-2:      #3C6997;
+  --fg-3:      #6B8FAF;
+  --fg-on-sun: #1a1206;
+
+  --accent:     #FE9000;
+  --accent-2:   #FFDD4A;
+  --accent-sky: #5ADBFF;
+
+  --border-1: rgba(9, 64, 116, 0.18);
+  --border-2: rgba(9, 64, 116, 0.09);
+
+  --shadow-sm:   0 1px 3px rgba(9, 64, 116, 0.1);
+  --shadow-md:   0 4px 12px rgba(9, 64, 116, 0.15);
+  --shadow-lg:   0 8px 24px rgba(9, 64, 116, 0.2);
+  --shadow-glow: 0 0 0 3px rgba(254, 144, 0, 0.35), 0 4px 16px rgba(254, 144, 0, 0.3);
+  --ring:        rgba(254, 144, 0, 0.6);
+
+  --selection-bg: #FFDD4A;
+  --selection-fg: #094074;
+
+  --grad-mood-linear: linear-gradient(90deg,  #FFF1A6, #FFDD4A 30%, #FE9000 72%, #F2660F);
+  --grad-mood-card:   linear-gradient(135deg, #FFF1A6, #FFDD4A 30%, #FE9000 72%, #F2660F);
+}
+
+/* ---- Nightfall (dark) ----------------------------------------------------- */
+[data-theme="dark"] {
+  --bg-1:    #0F0A06;
+  --bg-2:    #1A1108;
+  --bg-3:    #251808;
+  --bg-inset: #120C05;
+
+  --fg-1:      #F0E6D3;
+  --fg-2:      #C4A882;
+  --fg-3:      #8A7260;
+  --fg-on-sun: #fff8f0;
+
+  --accent:     #FF8C42;
+  --accent-2:   #FFC24B;
+  --accent-sky: #5ADBFF;
+
+  --border-1: rgba(255, 194, 75, 0.15);
+  --border-2: rgba(255, 194, 75, 0.08);
+
+  --shadow-sm:   0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md:   0 4px 12px rgba(0, 0, 0, 0.45);
+  --shadow-lg:   0 8px 24px rgba(0, 0, 0, 0.55);
+  --shadow-glow: 0 0 0 3px rgba(255, 107, 74, 0.4), 0 4px 16px rgba(194, 70, 139, 0.35);
+  --ring:        rgba(255, 107, 74, 0.6);
+
+  --selection-bg: #C2468B;
+  --selection-fg: #F0E6D3;
+
+  --grad-mood-linear: linear-gradient(90deg,  #FFC24B, #FF6B4A 45%, #C2468B 78%, #6A3FA0);
+  --grad-mood-card:   linear-gradient(135deg, #FFC24B, #FF6B4A 45%, #C2468B 78%, #6A3FA0);
+}

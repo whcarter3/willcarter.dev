@@ -1,70 +1,32 @@
 import { useState, useRef } from 'react';
 
-/**
- * Custom hook that creates a gradient background that changes
- * based on the mouse or touch position
- * @param T - The type of element the ref will be applied to
- * @returns - An array that contains the gradient style string, an object with two properties:
- * onMouseMove and onTouchMove, and a ref object that can be applied to an element.
- */
+function getGradientStops(): string {
+  if (typeof document === 'undefined') return '#FFF1A6, #FFDD4A 30%, #FE9000 72%, #F2660F';
+  return document.documentElement.getAttribute('data-theme') === 'dark'
+    ? '#FFC24B, #FF6B4A 45%, #C2468B 78%, #6A3FA0'
+    : '#FFF1A6, #FFDD4A 30%, #FE9000 72%, #F2660F';
+}
+
 const useGradient = <T extends HTMLElement>(): [
   string,
-  {
-    onMouseMove: (e: React.MouseEvent<T, MouseEvent>) => void;
-    onTouchMove: (e: React.TouchEvent<T>) => void;
-  },
+  { onMouseMove: (e: React.MouseEvent<T>) => void; onTouchMove: (e: React.TouchEvent<T>) => void },
   React.MutableRefObject<T | null>
 ] => {
-  // State variable that holds the current gradient value
   const [gradient, setGradient] = useState<string>('');
-  // Ref object that can be applied to an element
   const ref = useRef<T>(null);
 
-  /**
-   * Event handler that updates the gradient value
-   * based on the mouse position
-   * @param e - MouseEvent
-   */
-  const handleMouseMove = (e: React.MouseEvent<T, MouseEvent>) => {
-    // get the bounding client rect of the element the ref is applied to
+  const compute = (x: number, y: number) => {
     const rect = ref.current?.getBoundingClientRect();
-    if (rect) {
-      // update the gradient state variable
-      setGradient(
-        `radial-gradient(circle at ${e.clientX - rect.left}px ${
-          e.clientY - rect.top
-        }px, #ffDD4a, #ff9000)`
-      );
-    }
+    if (!rect) return;
+    setGradient(
+      `radial-gradient(circle at ${x - rect.left}px ${y - rect.top}px, ${getGradientStops()})`
+    );
   };
 
-  /**
-   * Event handler that updates the gradient value
-   * based on the touch position
-   * @param e - TouchEvent
-   */
-  const handleTouchMove = (e: React.TouchEvent<T>) => {
-    // get the bounding client rect of the element the ref is applied to
-    const rect = ref.current?.getBoundingClientRect();
-    if (rect) {
-      // update the gradient state variable
-      setGradient(
-        `radial-gradient(circle at ${
-          e.touches[0].clientX - rect.left
-        }px ${e.touches[0].clientY - rect.top}px, #ffDD4a, #ff9000)`
-      );
-    }
-  };
+  const onMouseMove = (e: React.MouseEvent<T>) => compute(e.clientX, e.clientY);
+  const onTouchMove = (e: React.TouchEvent<T>) => compute(e.touches[0].clientX, e.touches[0].clientY);
 
-  // return the gradient, the object with the event handlers and the ref object
-  return [
-    gradient,
-    {
-      onMouseMove: handleMouseMove,
-      onTouchMove: handleTouchMove,
-    },
-    ref,
-  ];
+  return [gradient, { onMouseMove, onTouchMove }, ref];
 };
 
 export default useGradient;

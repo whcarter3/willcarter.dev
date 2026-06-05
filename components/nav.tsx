@@ -1,59 +1,89 @@
-import React, { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
-import logoImage from '/public/logo-square.png';
 import useGradient from '@/hooks/useGradient';
+import ThemeToggle from './ThemeToggle';
+import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 
 interface NavProps {
-  className?: string;
-  home?: boolean;
+  transparent?: boolean;
 }
 
 const links = [
-  { href: '/resume', label: 'Resume' },
-  { href: '/about', label: 'About' },
+  { href: '/blog',    label: 'Blog' },
+  { href: '/resume',  label: 'Resume' },
+  { href: '/about',   label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
 
-function Nav({ className, home }: NavProps): JSX.Element {
+function Nav({ transparent }: NavProps) {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [gradient, handlers, ref] = useGradient<HTMLElement>();
 
-  const [gradient, handleMove, ref] = useGradient<HTMLDivElement>();
+  // Close menu on route change
+  useEffect(() => { setOpen(false); }, [router.pathname]);
+
+  // Close menu on Escape — only attach listener when menu is open
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
 
   return (
     <nav
-      className={`${className} px-5 py-5 w-full fixed top-0 left-0 z-10`}
-      style={{ background: home ? 'transparent' : gradient }}
       ref={ref}
-      onMouseMove={handleMove.onMouseMove}
-      onTouchMove={handleMove.onTouchMove}
+      className={classNames('nav', transparent && 'is-transparent')}
+      style={!transparent && gradient ? { background: gradient } : undefined}
+      {...handlers}
     >
-      <div className="max-w-[1250px] flex justify-between items-center mx-auto">
+      <div className="nav-inner">
         <Link href="/">
           <Image
-            src={logoImage}
-            width={75}
-            height={75}
-            alt="Will Carter Dev Logo"
+            src="/logo-square.png"
+            width={52}
+            height={52}
+            alt="Will Carter"
             priority
+            className="avatar"
           />
         </Link>
-        <div>
-          {links.map(({ href, label }) => (
-            <Link
-              key={label}
-              href={href}
-              className={classNames(
-                'font-heading md:text-xl mr-5 pb-1 hover-shadow',
-                router.pathname === href &&
-                  'border-b-2 border-brand-darker'
-              )}
-            >
-              {label}
-            </Link>
-          ))}
+
+        <div className="nav-actions">
+          <ThemeToggle />
+          <button
+            className={classNames('menu-btn', open && 'is-open')}
+            onClick={() => setOpen(o => !o)}
+            aria-label="Toggle menu"
+            aria-expanded={open}
+          >
+            {open ? <RiCloseLine /> : <RiMenu3Line />}
+          </button>
+        </div>
+
+        {open && <div className="menu-backdrop" onClick={() => setOpen(false)} />}
+
+        <div className={classNames('menu-panel', open && 'is-open')}>
+          {links.map(({ href, label }) => {
+            const isActive = href === '/blog'
+              ? router.pathname.startsWith(href)
+              : router.pathname === href;
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={classNames('menu-link', isActive && 'is-active')}
+                onClick={() => setOpen(false)}
+              >
+                {label}
+                {isActive && <span className="menu-dot" />}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </nav>

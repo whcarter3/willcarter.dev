@@ -9,65 +9,45 @@ interface CardProps {
   title: string;
   description: string;
   link: string;
-  imgSize: number;
-  className?: string;
   reverse?: boolean;
 }
 
-const Card = ({
-  image,
-  title,
-  description,
-  link,
-  imgSize,
-  className,
-  reverse,
-}: CardProps) => {
-  const [gradient, handleMove, ref] = useGradient<HTMLDivElement>();
+const Card = ({ image, title, description, link, reverse }: CardProps) => {
+  const [gradient, handlers, ref] = useGradient<HTMLDivElement>();
+
   return (
     <div
       ref={ref}
-      style={{ background: gradient }}
-      onMouseMove={handleMove.onMouseMove}
-      onTouchMove={handleMove.onTouchMove}
-      className="card rounded-md flex flex-col md:flex-row"
+      className="endorsement-card card-sun"
+      style={gradient ? { background: gradient } : undefined}
+      {...handlers}
     >
-      <div
-        className={classNames(
-          reverse ? 'md:order-2' : 'md:order-1',
-          'shrink-0'
-        )}
-      >
-        <Image
-          src={image}
-          alt={title}
-          width={imgSize}
-          height={imgSize}
-          className={classNames(
-            'rounded-md',
-            className,
-            reverse ? 'md:ml-5' : 'md:mr-5'
-          )}
-        />
-        <div
-          className={classNames(
-            'flex md:flex-col',
-            reverse ? 'md:items-end' : 'items-start',
-            'mb-2 mt-1 md:mb-0 md:mt-0'
-          )}
-        >
-          <h3 className="text-2xl">{title}</h3>
-          <Link
-            href={link}
-            className="hover-shadow ml-3 mt-2 md:ml-0 md:mt-0"
-          >
-            <FaLinkedin />
-          </Link>
+      <div className={classNames('endorsement-inner', reverse && 'reverse')}>
+        <div className="endorsement-avatar">
+          <Image
+            src={image}
+            alt={title}
+            width={80}
+            height={80}
+            className="avatar-round"
+          />
+        </div>
+        <div className="endorsement-content">
+          <div className="endorsement-name">
+            {title}
+            <Link
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${title} on LinkedIn`}
+              className="hover-shadow"
+            >
+              <FaLinkedin />
+            </Link>
+          </div>
+          <p className="endorsement-quote">{description}</p>
         </div>
       </div>
-      <p className={classNames(reverse ? 'order-1' : 'order-2')}>
-        {description}
-      </p>
     </div>
   );
 };

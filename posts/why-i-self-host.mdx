@@ -1,0 +1,26 @@
+---
+title: "Why I Self-Host"
+date: "2025-12-02"
+description: "I got tired of renting access to my own things, so I built a home server. A tour of the stack, the networking, the two in the morning breakages, and why it is worth it."
+tags: ["homelab", "self-hosting", "docker", "unraid", "networking"]
+category: "Hobbies"
+published: true
+---
+
+At some point I got tired of renting access to my own things. My photos lived on Google's servers, my media lived behind a rotating cast of streaming subscriptions, and the deal kept quietly getting worse: prices up, features paywalled, libraries shuffled, and content I thought I had access to vanishing because a licensing contract expired in a boardroom I will never see. The cloud, as the saying goes, is just someone else's computer. So I built my own.
+
+These days I run a home server on Unraid, an Intel i5-14600K tucked into a Jonsbo N4 case, small enough to sit on a shelf and quiet enough to forget about. It is named PayBooey. It runs a stack of Docker containers that, together, replace a surprising number of the services I used to pay for or depend on.
+
+The backbone is media automation, the so-called arr suite. Sonarr and Radarr manage TV and movie libraries, Prowlarr handles the indexers they search, and the actual downloading runs through SABnzbd and qBittorrent. Everything that touches the open internet for downloads is routed through a VPN, using Gluetun as the gateway container in front of ProtonVPN, so the traffic does not leave the house unprotected. Plex sits on top and turns the result into something that looks and feels like my own private streaming service, available on every screen in the house.
+
+The piece I care about most is Immich. It is a self-hosted photo backup and gallery, and it is close enough to Google Photos in daily use that my family does not notice the difference, except that the photos now live on a drive I own, in a building I live in, under my control. For someone who spent years as a photographer, getting my photo library out of someone else's account and back into my own hands was the whole point. ROMM rounds things out by cataloging my retro game collection, which is a story for another post, and Pi-hole runs as a network-wide ad and tracker blocker, quietly cleaning up the internet for every device on the network before the ads ever load.
+
+The part that took the longest to get right was not the apps. It was the networking. The hard question with a home server is how you reach your own services from outside the house without flinging open a door for the rest of the internet to walk through. The lazy answer is to forward a bunch of ports and hope for the best, which is also a great way to end up as a cautionary tale. I went a different route. Tailscale gives me a private mesh network, so my own devices can reach the server as if they were sitting next to it, no matter where I am. For the handful of services that need to be reachable more broadly, Cloudflare Tunnels expose them without opening a single inbound port on my router. The guiding rule is simple: no open ports if I can possibly avoid it. The server connects out, and nothing connects in uninvited.
+
+I will not pretend this is a frictionless hobby. It is a hobby that bites back. Things break, usually at the least convenient time, and there is a specific flavor of evening that involves standing in front of the server at an hour I should be asleep, asking out loud why Plex has decided to stop existing. An update changes a config format. A container will not start and the logs are cryptic. A drive starts throwing errors and you remember, suddenly and with feeling, why backups matter. Self-hosting hands you the bill for everything a cloud service was quietly handling on your behalf, and some of those bills come due at two in the morning.
+
+I keep doing it anyway, for two reasons. The first is ownership, in the plain sense. My photos are mine. My media is mine. Nothing disappears because a contract lapsed, nothing gets more expensive because a quarterly target was missed, and no algorithm decides what I see in my own library. That kind of control is increasingly rare and, to me, increasingly worth the trouble.
+
+The second reason is that running this stack has taught me more about systems than any course or tutorial ever did. Docker networking stopped being abstract the day I had to reason about why one container could see another and a third could not. DNS, reverse proxies, VPN routing, certificate management, and the difference between a thing that works on my network and a thing that works from anywhere all went from vocabulary I had read to mechanics I had debugged at midnight with something real on the line. There is no substitute for owning the whole stack when you want to understand it deeply. The breakages are the curriculum.
+
+I would not tell everyone to do this. For most people, the convenience of a managed service is the right call, and there is no shame in that. But if you have ever felt the slow squeeze of subscriptions creeping up and control creeping away, and if you are the kind of person who learns by taking the thing apart, a homelab scratches an itch nothing else does. It is more work than the cloud. That is exactly why it teaches you so much, and exactly why the things it keeps are so satisfyingly, unambiguously yours.

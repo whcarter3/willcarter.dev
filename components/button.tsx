@@ -1,27 +1,19 @@
-import { useState, useRef } from 'react';
 import useGradient from '@/hooks/useGradient';
 import classNames from 'classnames';
 
-interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  className?: string;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  size?: 'lg';
   children: React.ReactNode;
 }
 
-const Button = ({
-  className,
-  children,
-  ...props
-}: ButtonProps): JSX.Element => {
-  const [gradient, handleMove, ref] =
-    useGradient<HTMLButtonElement>();
+const Button = ({ className, children, size, ...props }: ButtonProps) => {
+  const [gradient, handlers, ref] = useGradient<HTMLButtonElement>();
   return (
     <button
-      className={classNames(className && className, 'button w-fit')}
-      style={{ background: gradient }}
-      onMouseMove={handleMove.onMouseMove}
-      onTouchMove={handleMove.onTouchMove}
       ref={ref}
+      className={classNames('btn', size === 'lg' && 'btn-lg', className)}
+      style={gradient ? { background: gradient } : undefined}
+      {...handlers}
       {...props}
     >
       {children}

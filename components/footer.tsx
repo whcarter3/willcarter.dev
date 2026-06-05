@@ -1,64 +1,39 @@
-import { useState, useRef } from 'react';
 import Link from 'next/link';
-import { IconContext } from 'react-icons';
-import {
-  FaGithub,
-  FaLinkedinIn,
-  FaAngellist,
-  FaCodepen,
-} from 'react-icons/fa';
+import { FaGithub, FaLinkedinIn, FaCodepen, FaEnvelope } from 'react-icons/fa';
 import useGradient from '@/hooks/useGradient';
 
-interface FooterProps {
-  className?: string;
-  home?: boolean;
-}
-
 const footerLinks = [
-  {
-    href: 'https://github.com/whcarter3',
-    icon: <FaGithub />,
-  },
-  {
-    href: 'https://www.linkedin.com/in/carterthethird/',
-    icon: <FaLinkedinIn />,
-  },
-  {
-    href: 'https://angel.co/u/whc-tre',
-    icon: <FaAngellist />,
-  },
-  {
-    href: 'https://codepen.io/carterthethird',
-    icon: <FaCodepen />,
-  },
+  { href: 'https://github.com/whcarter3',                   icon: <FaGithub />,     label: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/carterthethird/',    icon: <FaLinkedinIn />, label: 'LinkedIn' },
+  { href: 'https://codepen.io/carterthethird',              icon: <FaCodepen />,    label: 'CodePen' },
+  { href: 'mailto:hello@willcarter.dev',                    icon: <FaEnvelope />,   label: 'Email' },
 ];
 
-function Footer({ className, home }: FooterProps): JSX.Element {
-  const [gradient, handleMove, ref] = useGradient<HTMLDivElement>();
+function Footer() {
+  const [gradient, handlers, ref] = useGradient<HTMLElement>();
 
   return (
-    <IconContext.Provider
-      value={{ className: 'text-3xl text-brand-darker' }}
+    <footer
+      ref={ref}
+      className="footer"
+      style={gradient ? { background: gradient } : undefined}
+      {...handlers}
     >
-      <footer
-        className={`${className} absolute bottom-0 left-0 w-full flex justify-center py-5`}
-        style={{ background: home ? 'transparent' : gradient }}
-        ref={ref}
-        onMouseMove={handleMove.onMouseMove}
-        onTouchMove={handleMove.onTouchMove}
-      >
-        {footerLinks.map(({ href, icon }) => (
+      <div className="footer-inner">
+        {footerLinks.map(({ href, icon, label }) => (
           <Link
             key={href}
             href={href}
-            target={'_blank'}
-            className="mr-5 filter-shadow"
+            target={href.startsWith('mailto') ? undefined : '_blank'}
+            rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
+            className="footer-link"
+            aria-label={label}
           >
             {icon}
           </Link>
         ))}
-      </footer>
-    </IconContext.Provider>
+      </div>
+    </footer>
   );
 }
 

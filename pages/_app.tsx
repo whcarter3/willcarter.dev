@@ -1,32 +1,28 @@
 import '@/styles/globals.css';
-import '@/styles/letter-animation.css';
 import type { AppProps } from 'next/app';
-import { SessionProvider } from 'next-auth/react';
-import { PT_Mono, Source_Sans_Pro } from '@next/font/google';
+import { PT_Mono, Source_Sans_3 } from 'next/font/google';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 
 const ptMono = PT_Mono({
   weight: '400',
   subsets: ['latin'],
   variable: '--font-pt-mono',
+  display: 'swap',
 });
 
-const sourceSansPro = Source_Sans_Pro({
-  weight: '400',
+const sourceSans3 = Source_Sans_3({
+  weight: ['400', '600'],
   subsets: ['latin'],
   variable: '--font-source-sans-pro',
+  display: 'swap',
 });
 
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider session={session}>
-      <main
-        className={`${ptMono.variable} ${sourceSansPro.variable}`}
-      >
+    <ThemeProvider>
+      <div className={`${ptMono.variable} ${sourceSans3.variable}`} style={{ display: 'contents' }}>
         <Component {...pageProps} />
-      </main>
-    </SessionProvider>
+      </div>
+    </ThemeProvider>
   );
 }

@@ -1,0 +1,30 @@
+---
+title: "Why We Migrated from XState to Jotai"
+date: "2025-09-23"
+description: "XState was the right call until our app outgrew it, and the most visible symptom was load time. Here is why we moved to atomic state, what it bought us, and what we gave up."
+tags: ["engineering", "frontend", "state-management", "performance", "moment"]
+category: "Tech"
+published: true
+---
+
+Every state management choice is right until your app outgrows it. At Moment, ours was XState, and for a long stretch it was a good fit. Then it stopped being one, and the most visible symptom was load time. This is the story of why we moved to Jotai, what it bought us, and what we gave up.
+
+First, in fairness to XState, why we picked it. XState models state as explicit state machines and statecharts. Instead of a pile of booleans (isLoading, isError, isOpen, isEditing) that can drift into impossible combinations, you declare the states a thing can be in and the transitions between them. An upload is idle, or uploading, or succeeded, or failed, and it can only move between those in ways you defined. For properly complex flows, that explicitness is a gift. Bugs that come from impossible states, the loading spinner that shows up next to the error message, mostly stop happening because you made them unrepresentable.
+
+So what went wrong. A few things, and they compounded.
+
+The first was weight. XState is not a tiny dependency, and statecharts encourage you to model a lot of your app as machines. That modeling is valuable, but it ships to the browser. As more of the product lived inside machines, more code had to be parsed and evaluated before the app became interactive, and our initial load felt it.
+
+The second was ceremony. The discipline that makes state machines safe also makes them verbose. A small piece of UI state, a dropdown that is open or closed, a panel that is expanded or collapsed, does not always justify a machine, a set of transitions, and the wiring to read it inside a component. We had a lot of small state, and the overhead of doing all of it the formal way added up in developer time and in bundle size.
+
+The third was that a lot of our state was not really a workflow at all. It was just values that components needed to share. XState is built for transitions and orchestration. When you mostly need "this value, available over here, updated from over there," a state machine is a heavy tool for a light job.
+
+Jotai goes the other direction. It is built around atoms, small independent pieces of state that components subscribe to directly. You define an atom, you read it where you need it, you write it where it changes, and React re-renders only the pieces that depend on it. There is almost no ceremony. The mental model is close to useState that happens to live outside any single component, which is exactly what most of our shared state wanted to be.
+
+We did not do a big-bang rewrite, because big-bang rewrites are how you spend six months shipping nothing. We migrated incrementally, leaf by leaf. New state went into atoms. When we touched an old machine that was really just holding values, we replaced it. The machines that earned their complexity, the truly stateful workflows, we left alone or migrated last and carefully. For a while the two systems lived side by side, which is not pretty but is honest, and it let us ship the whole time.
+
+The payoff was the headline number: load times dropped by more than half. Some of that was the smaller dependency, some was less code overall, and some was that atomic subscriptions meant fewer components re-rendering on every state change. We measured it the boring way, with real metrics on real loads rather than vibes, because "it feels faster" is not a number you can defend in a review.
+
+Now the part that matters for not lying to yourself: what we gave up. XState's explicit states are very good at preventing a class of bugs, and Jotai does not give you that for free. With atoms, it is once again possible to wire up two booleans that should never both be true and then watch them both be true. The discipline that the machine enforced now lives in your head and your code review. For the complex, truly stateful corners of the product, a state machine is still the right answer, and I would reach for one again without hesitation. The migration was not "Jotai good, XState bad." It was that most of our state was simple, we had been paying machine prices for value-passing problems, and our needs had shifted.
+
+If I had to compress it to one takeaway, it is this. Match the tool to the shape of the problem, not to the most powerful option available. State machines are excellent at orchestrating complex flows and a poor fit for being a place to stash a boolean. We had a lot of booleans pretending to be flows. Moving them to atoms made the app lighter, the code shorter, and the experience faster, and it cost us a guarantee we mostly were not using anyway. That is a trade I would make again.
