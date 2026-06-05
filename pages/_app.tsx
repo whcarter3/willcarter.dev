@@ -20,7 +20,7 @@ const sourceSans3 = Source_Sans_3({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider>
-      <div className={`${ptMono.variable} ${sourceSans3.variable}`} style={{ display: 'contents' }}>
+      <div className={`${ptMono.variable} ${sourceSans3.variable} font-body`} style={{ display: 'contents' }}>
         <Component {...pageProps} />
       </div>
     </ThemeProvider>

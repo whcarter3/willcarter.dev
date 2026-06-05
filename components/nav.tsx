@@ -12,9 +12,9 @@ interface NavProps {
 }
 
 const links = [
-  { href: '/blog',    label: 'Blog' },
-  { href: '/resume',  label: 'Resume' },
-  { href: '/about',   label: 'About' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/resume', label: 'Resume' },
+  { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
 
@@ -24,12 +24,16 @@ function Nav({ transparent }: NavProps) {
   const [gradient, handlers, ref] = useGradient<HTMLElement>();
 
   // Close menu on route change
-  useEffect(() => { setOpen(false); }, [router.pathname]);
+  useEffect(() => {
+    setOpen(false);
+  }, [router.pathname]);
 
   // Close menu on Escape — only attach listener when menu is open
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [open]);
@@ -38,26 +42,23 @@ function Nav({ transparent }: NavProps) {
     <nav
       ref={ref}
       className={classNames('nav', transparent && 'is-transparent')}
-      style={!transparent && gradient ? { background: gradient } : undefined}
+      style={
+        !transparent && gradient
+          ? { background: gradient }
+          : undefined
+      }
       {...handlers}
     >
       <div className="nav-inner">
         <Link href="/">
-          <Image
-            src="/logo-square.png"
-            width={52}
-            height={52}
-            alt="Will Carter"
-            priority
-            className="avatar"
-          />
+          <h1>willcarter.dev</h1>
         </Link>
 
         <div className="nav-actions">
           <ThemeToggle />
           <button
             className={classNames('menu-btn', open && 'is-open')}
-            onClick={() => setOpen(o => !o)}
+            onClick={() => setOpen((o) => !o)}
             aria-label="Toggle menu"
             aria-expanded={open}
           >
@@ -65,18 +66,27 @@ function Nav({ transparent }: NavProps) {
           </button>
         </div>
 
-        {open && <div className="menu-backdrop" onClick={() => setOpen(false)} />}
+        {open && (
+          <div
+            className="menu-backdrop"
+            onClick={() => setOpen(false)}
+          />
+        )}
 
         <div className={classNames('menu-panel', open && 'is-open')}>
           {links.map(({ href, label }) => {
-            const isActive = href === '/blog'
-              ? router.pathname.startsWith(href)
-              : router.pathname === href;
+            const isActive =
+              href === '/blog'
+                ? router.pathname.startsWith(href)
+                : router.pathname === href;
             return (
               <Link
                 key={href}
                 href={href}
-                className={classNames('menu-link', isActive && 'is-active')}
+                className={classNames(
+                  'menu-link',
+                  isActive && 'is-active',
+                )}
                 onClick={() => setOpen(false)}
               >
                 {label}
