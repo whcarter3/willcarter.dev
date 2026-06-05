@@ -15,7 +15,6 @@ const links = [
   { href: '/blog', label: 'Blog' },
   { href: '/resume', label: 'Resume' },
   { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
 ];
 
 function Nav({ transparent }: NavProps) {

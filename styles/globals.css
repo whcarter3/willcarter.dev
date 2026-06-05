@@ -79,8 +79,7 @@
   .menu-panel {
     position: absolute; top: calc(100% - 4px); right: 24px; z-index: 60;
     min-width: 220px; padding: 8px;
-    background: var(--bg-2);
-    border: var(--border-width) solid var(--border-1);
+    background: var(--bg-1);
     border-radius: var(--radius-sm);
     box-shadow: var(--shadow-lg);
     display: flex; flex-direction: column; gap: 2px;
@@ -203,7 +202,6 @@
     letter-spacing: .03em; text-transform: lowercase;
     padding: 4px 11px; border-radius: var(--radius-pill);
     background: var(--bg-3); color: var(--fg-2);
-    border: 1.5px solid var(--border-2);
   }
   .tag-sun { background: var(--grad-mood-linear); color: var(--fg-on-sun); border: none; }
 
