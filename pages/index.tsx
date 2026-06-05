@@ -32,12 +32,12 @@ export default function Home() {
       <RadialGradient>
         <div className="h-full w-full flex items-center justify-center p-4 lg:p-0">
           <h1 className="text-2xl lg:text-[2.5rem] text-fg-1 text-center lg:text-left leading-snug font-heading">
-            <Link href="/contact" className="border-b-2 border-fg-1 font-heading hover-shadow">
+            <Link href="/contact" className="font-heading hero-link">
               Hello!
             </Link>{' '}
             <br className="lg:hidden" />
             My name is{' '}
-            <Link href="/about" className="border-b-2 border-fg-1 font-heading hover-shadow">
+            <Link href="/about" className="font-heading hero-link">
               Will Carter
             </Link>
             ,

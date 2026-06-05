@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import useGradient from '@/hooks/useGradient';
-import ThemeToggle from './ThemeToggle';
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 
 interface NavProps {
@@ -51,11 +50,10 @@ function Nav({ transparent }: NavProps) {
     >
       <div className="nav-inner">
         <Link href="/">
-          <h1>willcarter.dev</h1>
+          <span className="nav-wordmark">willcarter.dev</span>
         </Link>
 
         <div className="nav-actions">
-          <ThemeToggle />
           <button
             className={classNames('menu-btn', open && 'is-open')}
             onClick={() => setOpen((o) => !o)}

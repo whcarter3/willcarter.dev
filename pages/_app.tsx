@@ -2,6 +2,7 @@ import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { PT_Mono, Source_Sans_3 } from 'next/font/google';
 import { ThemeProvider } from '@/contexts/ThemeContext';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const ptMono = PT_Mono({
   weight: '400',
@@ -22,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <ThemeProvider>
       <div className={`${ptMono.variable} ${sourceSans3.variable} font-body`} style={{ display: 'contents' }}>
         <Component {...pageProps} />
+        <ThemeToggle />
       </div>
     </ThemeProvider>
   );

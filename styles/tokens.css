@@ -4,6 +4,29 @@
    Applied via data-theme attribute on <html>.
    ========================================================================== */
 
+/* ---- Animatable theme tokens ---------------------------------------------- */
+@property --grad-1   { syntax: '<color>'; inherits: true; initial-value: #FFF1A6; }
+@property --grad-2   { syntax: '<color>'; inherits: true; initial-value: #FFDD4A; }
+@property --grad-3   { syntax: '<color>'; inherits: true; initial-value: #FE9000; }
+@property --grad-4   { syntax: '<color>'; inherits: true; initial-value: #F2660F; }
+@property --bg-1     { syntax: '<color>'; inherits: true; initial-value: #FFF5D6; }
+@property --bg-2     { syntax: '<color>'; inherits: true; initial-value: #FFFAEC; }
+@property --bg-3     { syntax: '<color>'; inherits: true; initial-value: #FFF1A6; }
+@property --bg-inset { syntax: '<color>'; inherits: true; initial-value: #FFF8DE; }
+@property --fg-1     { syntax: '<color>'; inherits: true; initial-value: #094074; }
+@property --fg-2     { syntax: '<color>'; inherits: true; initial-value: #3C6997; }
+@property --fg-3     { syntax: '<color>'; inherits: true; initial-value: #6B8FAF; }
+@property --fg-on-sun { syntax: '<color>'; inherits: true; initial-value: #1a1206; }
+@property --fg-on-moon { syntax: '<color>'; inherits: true; initial-value: #094074; }
+@property --accent   { syntax: '<color>'; inherits: true; initial-value: #FE9000; }
+@property --accent-2 { syntax: '<color>'; inherits: true; initial-value: #FFDD4A; }
+@property --accent-sky { syntax: '<color>'; inherits: true; initial-value: #5ADBFF; }
+@property --border-1 { syntax: '<color>'; inherits: true; initial-value: rgba(9, 64, 116, 0.18); }
+@property --border-2 { syntax: '<color>'; inherits: true; initial-value: rgba(9, 64, 116, 0.09); }
+@property --selection-bg { syntax: '<color>'; inherits: true; initial-value: #FFDD4A; }
+@property --selection-fg { syntax: '<color>'; inherits: true; initial-value: #094074; }
+@property --ring     { syntax: '<color>'; inherits: true; initial-value: rgba(254, 144, 0, 0.6); }
+
 /* ---- Typography (theme-independent) -------------------------------------- */
 :root {
   --text-xs:        0.75rem;
@@ -31,6 +54,61 @@
   --dur:      300ms;
   --dur-fast: 150ms;
   --ease:     cubic-bezier(.4, 0, .2, 1);
+
+  --text-shadow-link:  2px 2px 6px rgba(0, 0, 0, .4);
+  --text-shadow-hover: 3px 3px 12px rgba(0, 0, 0, .7), 0 0 24px rgba(0, 0, 0, .3);
+  --hover-scale:       1.05;
+
+  /* ---- Sunset transition choreography ------------------------------------ */
+  /* Tweak these to taste — durations, delays, and easing per layer           */
+  --sun-dur-sky:      0.8s;   /* backgrounds — the sky shifts first           */
+  --sun-dur-glow:     1.0s;   /* gradient light stop — sun dropping           */
+  --sun-dur-warmth:   1.4s;   /* gradient mid stops — golden hour lingers     */
+  --sun-dur-horizon:  1.6s;   /* gradient deep stop — afterglow arrives last  */
+  --sun-dur-ink:      1.0s;   /* foreground text — follows the sky            */
+  --sun-dur-accent:   1.2s;   /* accent colors — mid-transition              */
+  --sun-dur-edge:     0.8s;   /* borders, rings — subtle, quick              */
+
+  --sun-delay-none:   0s;
+  --sun-delay-short:  0.1s;   /* text slightly after sky                     */
+  --sun-delay-mid:    0.2s;   /* accents after text                          */
+  --sun-delay-long:   0.3s;   /* deep gradient last                          */
+
+  --sun-ease-sky:     ease-out;                     /* quick start, slow settle */
+  --sun-ease-glow:    cubic-bezier(.3, 0, .2, 1);  /* smooth drop              */
+  --sun-ease-warmth:  ease-in-out;                  /* lingers in the middle    */
+  --sun-ease-horizon: cubic-bezier(.1, 0, .3, 1);  /* slow arrival             */
+  --sun-ease-ink:     ease-out;
+  --sun-ease-accent:  ease-in-out;
+  --sun-ease-edge:    ease-out;
+
+  transition:
+    /* gradient stops — staggered like a real sunset */
+    --grad-1   var(--sun-dur-glow)    var(--sun-ease-glow)    var(--sun-delay-none),
+    --grad-2   var(--sun-dur-warmth)  var(--sun-ease-warmth)  var(--sun-delay-none),
+    --grad-3   var(--sun-dur-warmth)  var(--sun-ease-warmth)  var(--sun-delay-short),
+    --grad-4   var(--sun-dur-horizon) var(--sun-ease-horizon) var(--sun-delay-long),
+    /* backgrounds — sky shifts first */
+    --bg-1     var(--sun-dur-sky)     var(--sun-ease-sky)     var(--sun-delay-none),
+    --bg-2     var(--sun-dur-sky)     var(--sun-ease-sky)     var(--sun-delay-none),
+    --bg-3     var(--sun-dur-sky)     var(--sun-ease-sky)     var(--sun-delay-none),
+    --bg-inset var(--sun-dur-sky)     var(--sun-ease-sky)     var(--sun-delay-none),
+    /* foregrounds — text follows the sky */
+    --fg-1     var(--sun-dur-ink)     var(--sun-ease-ink)     var(--sun-delay-short),
+    --fg-2     var(--sun-dur-ink)     var(--sun-ease-ink)     var(--sun-delay-short),
+    --fg-3     var(--sun-dur-ink)     var(--sun-ease-ink)     var(--sun-delay-short),
+    --fg-on-sun  var(--sun-dur-ink)    var(--sun-ease-ink)     var(--sun-delay-short),
+    --fg-on-moon var(--sun-dur-ink)    var(--sun-ease-ink)     var(--sun-delay-short),
+    /* accents */
+    --accent   var(--sun-dur-accent)  var(--sun-ease-accent)  var(--sun-delay-mid),
+    --accent-2 var(--sun-dur-accent)  var(--sun-ease-accent)  var(--sun-delay-mid),
+    --accent-sky var(--sun-dur-accent) var(--sun-ease-accent) var(--sun-delay-mid),
+    /* edges — subtle, quick */
+    --border-1 var(--sun-dur-edge)    var(--sun-ease-edge)    var(--sun-delay-none),
+    --border-2 var(--sun-dur-edge)    var(--sun-ease-edge)    var(--sun-delay-none),
+    --selection-bg var(--sun-dur-edge) var(--sun-ease-edge)   var(--sun-delay-none),
+    --selection-fg var(--sun-dur-edge) var(--sun-ease-edge)   var(--sun-delay-none),
+    --ring     var(--sun-dur-edge)    var(--sun-ease-edge)    var(--sun-delay-none);
 }
 
 /* ---- Daybreak (light) ----------------------------------------------------- */
@@ -44,7 +122,8 @@
   --fg-1:      #094074;
   --fg-2:      #3C6997;
   --fg-3:      #6B8FAF;
-  --fg-on-sun: #1a1206;
+  --fg-on-sun:  #1a1206;
+  --fg-on-moon: #094074;
 
   --accent:     #FE9000;
   --accent-2:   #FFDD4A;
@@ -62,8 +141,9 @@
   --selection-bg: #FFDD4A;
   --selection-fg: #094074;
 
-  --grad-mood-linear: linear-gradient(90deg,  #FFF1A6, #FFDD4A 30%, #FE9000 72%, #F2660F);
-  --grad-mood-card:   linear-gradient(135deg, #FFF1A6, #FFDD4A 30%, #FE9000 72%, #F2660F);
+  --grad-1: #FFF1A6; --grad-2: #FFDD4A; --grad-3: #FE9000; --grad-4: #F2660F;
+  --grad-mood-linear: linear-gradient(90deg,  var(--grad-1), var(--grad-2) 30%, var(--grad-3) 72%, var(--grad-4));
+  --grad-mood-card:   linear-gradient(135deg, var(--grad-1), var(--grad-2) 30%, var(--grad-3) 72%, var(--grad-4));
 }
 
 /* ---- Nightfall (dark) ----------------------------------------------------- */
@@ -76,7 +156,8 @@
   --fg-1:      #F0E6D3;
   --fg-2:      #C4A882;
   --fg-3:      #8A7260;
-  --fg-on-sun: #fff8f0;
+  --fg-on-sun:  #fff8f0;
+  --fg-on-moon: #F0E6D3;
 
   --accent:     #FF8C42;
   --accent-2:   #FFC24B;
@@ -94,6 +175,7 @@
   --selection-bg: #C2468B;
   --selection-fg: #F0E6D3;
 
-  --grad-mood-linear: linear-gradient(90deg,  #FFC24B, #FF6B4A 45%, #C2468B 78%, #6A3FA0);
-  --grad-mood-card:   linear-gradient(135deg, #FFC24B, #FF6B4A 45%, #C2468B 78%, #6A3FA0);
+  --grad-1: #FFC24B; --grad-2: #FF6B4A; --grad-3: #C2468B; --grad-4: #6A3FA0;
+  --grad-mood-linear: linear-gradient(90deg,  var(--grad-1), var(--grad-2) 45%, var(--grad-3) 78%, var(--grad-4));
+  --grad-mood-card:   linear-gradient(135deg, var(--grad-1), var(--grad-2) 45%, var(--grad-3) 78%, var(--grad-4));
 }

@@ -1,15 +1,36 @@
+import { useState, useCallback, useRef } from 'react';
 import { useThemeContext } from '@/contexts/ThemeContext';
-import { BsSun, BsMoon } from 'react-icons/bs';
+import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useThemeContext();
+  const [fading, setFading] = useState(false);
+  const btnRef = useRef<HTMLButtonElement>(null);
+
+  const handleClick = useCallback(() => {
+    if (fading) return;
+    setFading(true);
+
+    // Read the actual animation duration from the svg child's computed style
+    const svg = btnRef.current?.querySelector('svg');
+    const raw = svg ? getComputedStyle(svg).animationDuration : '0.3s';
+    const dur = raw.endsWith('ms') ? parseFloat(raw) : parseFloat(raw) * 1000;
+
+    // SYNC: 0.12 must land inside the icon-fade keyframe's 8%–20% opacity:0 window.
+    // If keyframe %-windows change, update this multiplier to match.
+    // dur is read from .theme-toggle.is-fading animationDuration in globals.css.
+    setTimeout(toggleTheme, dur * 0.12);
+    setTimeout(() => setFading(false), dur);
+  }, [fading, toggleTheme]);
+
   return (
     <button
-      className="theme-toggle"
-      onClick={toggleTheme}
+      ref={btnRef}
+      className={`theme-toggle${fading ? ' is-fading' : ''}`}
+      onClick={handleClick}
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
     >
-      {theme === 'dark' ? <BsSun /> : <BsMoon />}
+      {theme === 'light' ? <BsFillSunFill /> : <BsFillMoonFill />}
     </button>
   );
 }
