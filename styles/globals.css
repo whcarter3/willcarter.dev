@@ -160,7 +160,6 @@
     box-shadow: var(--shadow-md);
     transition: box-shadow var(--dur) var(--ease), transform var(--dur-fast) var(--ease);
   }
-  .btn:hover { box-shadow: var(--shadow-glow); }
   .btn:active { transform: translateY(1px) scale(.99); }
   .btn:focus-visible { outline: 3px solid var(--ring); outline-offset: 2px; }
   .btn[disabled] { opacity: .6; cursor: not-allowed; }
