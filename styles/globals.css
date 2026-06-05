@@ -18,6 +18,9 @@
     margin: 0; padding: 0;
   }
 
+  [data-theme="light"] { cursor: url('/cursor-dark.svg') 8 8, auto; }
+  [data-theme="dark"]  { cursor: url('/cursor-light.svg') 8 8, auto; }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-pt-mono);
     color: var(--fg-1);
@@ -54,7 +57,7 @@
     display: flex; align-items: center; justify-content: space-between; gap: 16px;
   }
   .nav-wordmark {
-    font-family: var(--font-pt-mono); font-size: var(--text-xl);
+    font-family: var(--font-pt-mono); font-size: var(--text-2xl);
     color: var(--fg-on-sun); letter-spacing: .01em; line-height: 1;
     text-shadow: var(--text-shadow-link);
     transition: text-shadow var(--dur) var(--ease), transform var(--dur-fast) var(--ease);
@@ -64,8 +67,8 @@
 
   .menu-btn {
     display: inline-flex; align-items: center; justify-content: center;
-    width: 42px; height: 42px; border-radius: var(--radius-pill);
-    border: none; background: transparent; color: var(--fg-on-sun); font-size: 19px;
+    width: 48px; height: 48px; border-radius: var(--radius-pill);
+    border: none; background: transparent; color: var(--fg-on-sun); font-size: 24px;
     transition: transform var(--dur-fast) var(--ease), background var(--dur) var(--ease);
   }
   .menu-btn:hover { background: rgba(255,255,255,.22); }
@@ -102,13 +105,17 @@
   .theme-toggle {
     position: fixed; bottom: 64px; left: 50%; transform: translateX(-50%);
     z-index: 100;
-    display: inline-flex; align-items: center; justify-content: center;
+    /* Grid centering ensures both sun and moon icons share the exact same
+       visual center regardless of their individual SVG path layouts. */
+    display: grid; place-items: center;
+    width: 48px; height: 48px;
     padding: 0; border: none; background: none;
-    font-size: 32px;
     cursor: pointer;
     filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, .4));
     transition: filter var(--dur) var(--ease), transform var(--dur-fast) var(--ease);
-    /* background: rgba(255, 75, 75, 0.75) */
+  }
+  .theme-toggle svg {
+    width: 32px; height: 32px;
   }
   /* Icon color uses a transitioning token — morphs with the theme */
   .theme-toggle { color: var(--fg-on-sun); }
