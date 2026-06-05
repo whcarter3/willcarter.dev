@@ -179,12 +179,12 @@
 
   .card {
     background: var(--bg-2);
-    border: var(--border-width) solid var(--border-2);
+    /* border: var(--border-width) solid var(--border-2); */
     border-radius: var(--radius-sm);
     box-shadow: var(--shadow-sm);
     transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
   }
-  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+  .card:hover { box-shadow: var(--shadow-lg); border-color: var(--accent); }
 
   /* Tags / pills */
   .tag {
