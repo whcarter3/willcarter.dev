@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
@@ -6,6 +7,8 @@ import Layout from '@/components/layout';
 import TagPill from '@/components/TagPill';
 import { getAllPostSlugs, getPostBySlug } from '@/lib/blog';
 import useGradient from '@/hooks/useGradient';
+
+const Comments = dynamic(() => import('@/components/Comments'), { ssr: false });
 
 interface BlogPostProps {
   post: {
@@ -106,6 +109,8 @@ export default function BlogPost({ post }: BlogPostProps) {
           </div>
         </footer>
       </article>
+
+      <Comments />
     </Layout>
   );
 }
