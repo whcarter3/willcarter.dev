@@ -5,6 +5,7 @@ import { BsArrowLeft } from 'react-icons/bs';
 import Layout from '@/components/layout';
 import TagPill from '@/components/TagPill';
 import { getAllPostSlugs, getPostBySlug } from '@/lib/blog';
+import useGradient from '@/hooks/useGradient';
 
 interface BlogPostProps {
   post: {
@@ -15,6 +16,7 @@ interface BlogPostProps {
     tags: string[];
     category: string;
     readingTime: string;
+    image?: string;
     content: MDXRemoteSerializeResult;
   };
 }
@@ -41,6 +43,7 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
         tags: post.tags,
         category: post.category,
         readingTime: post.readingTime,
+        image: post.image ?? null,
         content: mdxSource,
       },
     },
@@ -48,6 +51,8 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
 }
 
 export default function BlogPost({ post }: BlogPostProps) {
+  const [gradient, handlers, gradientRef] = useGradient<HTMLDivElement>();
+
   return (
     <Layout
       title={`${post.title} - Will Carter`}
@@ -71,6 +76,13 @@ export default function BlogPost({ post }: BlogPostProps) {
           <p className="text-fg-3">
             {post.dateLabel} · {post.readingTime} read
           </p>
+          {post.image && (
+            <img
+              src={post.image}
+              alt=""
+              className="post-hero-img"
+            />
+          )}
         </header>
 
         <div className="article">
@@ -78,7 +90,13 @@ export default function BlogPost({ post }: BlogPostProps) {
         </div>
 
         <footer className="mt-16 pt-8 border-t border-[var(--border-1)]">
-          <div className="author-card">
+          <div
+            ref={gradientRef}
+            className="author-card card-sun"
+            style={gradient ? { background: gradient } : undefined}
+            {...handlers}
+          >
+            <img src="/images/me-square.jpeg" alt="Will Carter" />
             <div className="author-info">
               <div className="author-name">Will Carter</div>
               <p className="author-bio">

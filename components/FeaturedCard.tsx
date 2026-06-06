@@ -10,16 +10,25 @@ interface FeaturedCardProps {
 
 export default function FeaturedCard({ post }: FeaturedCardProps) {
   return (
-    <Link href={`/blog/${post.slug}`} className="feature-card card mb-8 block">
+    <Link
+      href={`/blog/${post.slug}`}
+      className="feature-card card mb-8"
+    >
       <div className="feature-body">
         <div className="kicker">{post.category}</div>
-        <h2 className="post-row-title" style={{ fontSize: 'var(--text-2xl)', marginBottom: '12px' }}>
+        <h2
+          className="post-row-title"
+          style={{
+            fontSize: 'var(--text-2xl)',
+            marginBottom: '12px',
+          }}
+        >
           {post.title}
         </h2>
         <p className="post-row-excerpt">{post.description}</p>
         <div className="post-tags" style={{ marginBottom: '16px' }}>
           <TagPill sun>{post.category}</TagPill>
-          {post.tags.slice(0, 3).map(tag => (
+          {post.tags.slice(0, 3).map((tag) => (
             <TagPill key={tag}>{tag}</TagPill>
           ))}
         </div>
@@ -27,9 +36,26 @@ export default function FeaturedCard({ post }: FeaturedCardProps) {
           {post.dateLabel} · {post.readingTime} read
         </div>
       </div>
-      <GradientSurface baseClass="feature-img" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '4rem' }}>
-        <BsCode style={{ color: 'var(--fg-on-sun)', opacity: 0.7 }} />
-      </GradientSurface>
+      <div className="feature-img" style={{ position: 'relative', overflow: 'hidden' }}>
+        {post.image && (
+          <img
+            src={post.image}
+            alt=""
+            className="feature-img-bg"
+          />
+        )}
+        <GradientSurface
+          baseClass="feature-img-overlay"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '4rem',
+          }}
+        >
+          <BsCode style={{ color: 'var(--fg-on-sun)', opacity: 0.7 }} />
+        </GradientSurface>
+      </div>
     </Link>
   );
 }

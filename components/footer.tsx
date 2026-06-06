@@ -1,12 +1,28 @@
 import Link from 'next/link';
-import { FaGithub, FaLinkedinIn, FaCodepen, FaEnvelope } from 'react-icons/fa';
+import {
+  FaGithub,
+  FaLinkedinIn,
+  FaCodepen,
+  FaEnvelope,
+} from 'react-icons/fa';
 import useGradient from '@/hooks/useGradient';
 
 const footerLinks = [
-  { href: 'https://github.com/whcarter3',                   icon: <FaGithub />,     label: 'GitHub' },
-  { href: 'https://www.linkedin.com/in/carterthethird/',    icon: <FaLinkedinIn />, label: 'LinkedIn' },
-  { href: 'https://codepen.io/carterthethird',              icon: <FaCodepen />,    label: 'CodePen' },
-  { href: 'mailto:hello@willcarter.dev',                    icon: <FaEnvelope />,   label: 'Email' },
+  {
+    href: 'https://github.com/whcarter3',
+    icon: <FaGithub />,
+    label: 'GitHub',
+  },
+  {
+    href: 'https://www.linkedin.com/in/carterthethird/',
+    icon: <FaLinkedinIn />,
+    label: 'LinkedIn',
+  },
+  {
+    href: 'mailto:hello@willcarter.dev',
+    icon: <FaEnvelope />,
+    label: 'Email',
+  },
 ];
 
 function Footer() {
@@ -25,7 +41,11 @@ function Footer() {
             key={href}
             href={href}
             target={href.startsWith('mailto') ? undefined : '_blank'}
-            rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
+            rel={
+              href.startsWith('mailto')
+                ? undefined
+                : 'noopener noreferrer'
+            }
             className="footer-link"
             aria-label={label}
           >

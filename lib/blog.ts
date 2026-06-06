@@ -15,6 +15,8 @@ export interface PostMetadata {
   category: string;
   readingTime: string;
   featured?: boolean;
+  published?: boolean;
+  image?: string;
 }
 
 export interface Post extends PostMetadata {
@@ -74,6 +76,8 @@ export function getPostBySlug(slug: string): Post {
     category,
     readingTime: computeReadingTime(content),
     featured: data.featured ?? false,
+    published: data.published ?? true,
+    image: data.image ?? undefined,
   };
 }
 
@@ -84,5 +88,6 @@ export function getAllPosts(): PostMetadata[] {
       const { content: _, ...meta } = post;
       return meta;
     })
+    .filter(post => post.published !== false)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
