@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import { BsFillSunFill, BsFillMoonFill } from 'react-icons/bs';
 
@@ -6,10 +6,19 @@ interface ThemeToggleProps {
   variant?: 'hero' | 'menu';
 }
 
+function useIsMac() {
+  const [isMac, setIsMac] = useState(true);
+  useEffect(() => {
+    setIsMac(/Mac|iPhone|iPad/.test(navigator.platform));
+  }, []);
+  return isMac;
+}
+
 export default function ThemeToggle({ variant = 'hero' }: ThemeToggleProps) {
   const { theme, toggleTheme } = useThemeContext();
   const [fading, setFading] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
+  const isMac = useIsMac();
 
   const handleClick = useCallback(() => {
     if (fading) return;
@@ -39,6 +48,9 @@ export default function ThemeToggle({ variant = 'hero' }: ThemeToggleProps) {
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       {theme === 'light' ? <BsFillSunFill /> : <BsFillMoonFill />}
+      {variant === 'menu' && (
+        <kbd className="theme-shortcut">{isMac ? '⌘' : 'Ctrl'}↵</kbd>
+      )}
     </button>
   );
 }

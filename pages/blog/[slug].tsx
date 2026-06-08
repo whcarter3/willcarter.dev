@@ -5,9 +5,12 @@ import { serialize } from 'next-mdx-remote/serialize';
 import { BsArrowLeft } from 'react-icons/bs';
 import Layout from '@/components/layout';
 import TagPill from '@/components/TagPill';
+import YouTube from '@/components/YouTube';
+import Cite from '@/components/Cite';
 import { getAllPostSlugs, getPostBySlug } from '@/lib/blog';
 import useGradient from '@/hooks/useGradient';
 
+const TwitchClip = dynamic(() => import('@/components/TwitchClip'), { ssr: false });
 const Comments = dynamic(() => import('@/components/Comments'), { ssr: false });
 
 interface BlogPostProps {
@@ -89,7 +92,7 @@ export default function BlogPost({ post }: BlogPostProps) {
         </header>
 
         <div className="article">
-          <MDXRemote {...post.content} />
+          <MDXRemote {...post.content} components={{ YouTube, TwitchClip, Cite }} />
         </div>
 
         <footer className="mt-16 pt-8 border-t border-[var(--border-1)]">
