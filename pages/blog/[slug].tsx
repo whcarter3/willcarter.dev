@@ -10,8 +10,12 @@ import Cite from '@/components/Cite';
 import { getAllPostSlugs, getPostBySlug } from '@/lib/blog';
 import useGradient from '@/hooks/useGradient';
 
-const TwitchClip = dynamic(() => import('@/components/TwitchClip'), { ssr: false });
-const Comments = dynamic(() => import('@/components/Comments'), { ssr: false });
+const TwitchClip = dynamic(() => import('@/components/TwitchClip'), {
+  ssr: false,
+});
+const Comments = dynamic(() => import('@/components/Comments'), {
+  ssr: false,
+});
 
 interface BlogPostProps {
   post: {
@@ -35,7 +39,11 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }: { params: { slug: string } }) {
+export async function getStaticProps({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const post = getPostBySlug(params.slug);
   const mdxSource = await serialize(post.content);
 
@@ -57,7 +65,8 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
 }
 
 export default function BlogPost({ post }: BlogPostProps) {
-  const [gradient, handlers, gradientRef] = useGradient<HTMLDivElement>();
+  const [gradient, handlers, gradientRef] =
+    useGradient<HTMLDivElement>();
 
   return (
     <Layout
@@ -65,34 +74,36 @@ export default function BlogPost({ post }: BlogPostProps) {
       description={post.description}
       narrowContainer
     >
-      <Link href="/blog" className="inline-flex items-center gap-1.5 text-fg-3 hover:text-fg-1 mb-8 transition-colors">
+      <Link
+        href="/blog"
+        className="inline-flex items-center gap-1.5 text-fg-3 hover:text-fg-1 mb-8 transition-colors"
+      >
         <BsArrowLeft />
         All posts
       </Link>
 
       <article>
         <header className="mb-8">
-          <div className="post-tags mb-4">
+          {/* <div className="post-tags mb-4">
             <TagPill sun>{post.category}</TagPill>
             {post.tags.slice(0, 4).map(tag => (
               <TagPill key={tag}>{tag}</TagPill>
             ))}
-          </div>
+          </div> */}
           <h1 className="text-4xl font-heading mb-4">{post.title}</h1>
           <p className="text-fg-3">
             {post.dateLabel} · {post.readingTime} read
           </p>
           {post.image && (
-            <img
-              src={post.image}
-              alt=""
-              className="post-hero-img"
-            />
+            <img src={post.image} alt="" className="post-hero-img" />
           )}
         </header>
 
         <div className="article">
-          <MDXRemote {...post.content} components={{ YouTube, TwitchClip, Cite }} />
+          <MDXRemote
+            {...post.content}
+            components={{ YouTube, TwitchClip, Cite }}
+          />
         </div>
 
         <footer className="mt-16 pt-8 border-t border-[var(--border-1)]">
@@ -106,7 +117,9 @@ export default function BlogPost({ post }: BlogPostProps) {
             <div className="author-info">
               <div className="author-name">Will Carter</div>
               <p className="author-bio">
-                Senior Frontend Engineer. Writing about web development, accessibility, and the occasional homelab adventure.
+                Senior Frontend Engineer. Writing about web
+                development, accessibility, and the occasional homelab
+                adventure.
               </p>
             </div>
           </div>
