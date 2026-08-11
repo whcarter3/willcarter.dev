@@ -4,8 +4,24 @@ import Link from 'next/link';
 import { TypeAnimation } from 'react-type-animation';
 import RadialGradient from '@/components/radialGradient';
 import Nav from '@/components/nav';
+import { getAllPosts } from '@/lib/blog';
 
-export default function Home() {
+interface HomeProps {
+  latestPost: { title: string; slug: string } | null;
+}
+
+export async function getStaticProps() {
+  const [latest] = getAllPosts();
+  return {
+    props: {
+      latestPost: latest
+        ? { title: latest.title, slug: latest.slug }
+        : null,
+    },
+  };
+}
+
+export default function Home({ latestPost }: HomeProps) {
   useEffect(() => {
     document.body.classList.add('home');
     return () => {
@@ -91,6 +107,17 @@ export default function Home() {
             />
           </h1>
         </div>
+        {latestPost && (
+          <Link
+            href={`/blog/${latestPost.slug}`}
+            className="hero-latest"
+          >
+            <span className="hero-latest-label">Latest post</span>
+            <span className="hero-latest-title">
+              {latestPost.title}
+            </span>
+          </Link>
+        )}
       </RadialGradient>
     </>
   );

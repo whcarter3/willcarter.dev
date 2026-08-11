@@ -141,6 +141,11 @@
   --selection-bg: #FFDD4A;
   --selection-fg: #094074;
 
+  --code-del:    #C0392B;
+  --code-del-bg: rgba(192, 57, 43, 0.08);
+  --code-add:    #1E7B34;
+  --code-add-bg: rgba(30, 123, 52, 0.08);
+
   --grad-1: #FFF1A6; --grad-2: #FFDD4A; --grad-3: #FE9000; --grad-4: #F2660F;
   --grad-mood-linear: linear-gradient(90deg,  var(--grad-1), var(--grad-2) 30%, var(--grad-3) 72%, var(--grad-4));
   --grad-mood-card:   linear-gradient(135deg, var(--grad-1), var(--grad-2) 30%, var(--grad-3) 72%, var(--grad-4));
@@ -174,6 +179,11 @@
 
   --selection-bg: #C2468B;
   --selection-fg: #F0E6D3;
+
+  --code-del:    #FF6B6B;
+  --code-del-bg: rgba(255, 107, 107, 0.1);
+  --code-add:    #7BE07B;
+  --code-add-bg: rgba(123, 224, 123, 0.1);
 
   --grad-1: #FFC24B; --grad-2: #FF6B4A; --grad-3: #C2468B; --grad-4: #6A3FA0;
   --grad-mood-linear: linear-gradient(90deg,  var(--grad-1), var(--grad-2) 45%, var(--grad-3) 78%, var(--grad-4));
