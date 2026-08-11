@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import ThemeToggle from '@/components/ThemeToggle';
 import { ptMono, sourceSans3 } from '@/lib/fonts';
+import { Analytics } from '@vercel/analytics/next';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
         {isHome && <ThemeToggle variant="hero" />}
       </div>
+      <Analytics />
     </ThemeProvider>
   );
 }
