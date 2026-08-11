@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { PT_Mono, Source_Sans_3 } from 'next/font/google';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import ThemeToggle from '@/components/ThemeToggle';
+import { Analytics } from '@vercel/analytics/next';
 
 const ptMono = PT_Mono({
   weight: '400',
@@ -35,6 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
         {isHome && <ThemeToggle variant="hero" />}
       </div>
+      <Analytics />
     </ThemeProvider>
   );
 }
