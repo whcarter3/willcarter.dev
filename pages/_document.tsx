@@ -1,8 +1,9 @@
 import { Html, Head, Main, NextScript } from 'next/document'
+import { ptMono, sourceSans3 } from '@/lib/fonts'
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="en" className={`${ptMono.variable} ${sourceSans3.variable}`}>
       <Head>
         <script
           dangerouslySetInnerHTML={{
