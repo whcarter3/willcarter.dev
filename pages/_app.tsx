@@ -8,14 +8,12 @@ import ThemeToggle from '@/components/ThemeToggle';
 const ptMono = PT_Mono({
   weight: '400',
   subsets: ['latin'],
-  variable: '--font-pt-mono',
   display: 'swap',
 });
 
 const sourceSans3 = Source_Sans_3({
   weight: ['400', '600'],
   subsets: ['latin'],
-  variable: '--font-source-sans-pro',
   display: 'swap',
 });
 
@@ -25,7 +23,15 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider>
-      <div className={`${ptMono.variable} ${sourceSans3.variable} font-body`} style={{ display: 'contents' }}>
+      {/* Font variables live on :root so tokens.css composites
+          (--font-heading, --font-body, --font-mono) can resolve them. */}
+      <style jsx global>{`
+        :root {
+          --font-pt-mono: ${ptMono.style.fontFamily};
+          --font-source-sans-pro: ${sourceSans3.style.fontFamily};
+        }
+      `}</style>
+      <div className="font-body" style={{ display: 'contents' }}>
         <Component {...pageProps} />
         {isHome && <ThemeToggle variant="hero" />}
       </div>

@@ -1,0 +1,87 @@
+---
+title: 'Four Years of Guilt, Three Weeks of Shipping'
+date: '2026-08-10'
+description: 'I built a fun game in 2022 and let it rot for four years. Then an agentic coding setup and an honest test suite shipped the last twenty percent in three weeks. The interesting part is what was left for me.'
+tags: ['engineering', 'games', 'ai', 'testing', 'side-projects']
+category: 'Tech'
+published: true
+featured: true
+image: '/images/crypto-frenzy-after.png'
+---
+
+In June of 2022 I built a game called Crypto Frenzy. If you've ever played Dopewars, you know the shape: you start in debt to somebody unpleasant, you have a handful of days, prices swing wildly, and you buy low and sell high until the loan shark is paid off and the score is whatever's left. Mine wears a retro CRT terminal aesthetic and trades fake coins instead of, uh, product.
+
+I want to be clear about this part, because it matters for everything that comes after: I built the fun myself. The "functioning mvp" commit is dated June 28, 2022 — about a day after `Initial commit from Create Next App`. Within the week I'd added compounding debt, high scores, and price banding, each coin living in its own low/mid/high/moon band so that DOGE behaves like a lottery ticket and BTC behaves like a mortgage. A year later I added difficulty modes and, in a move I'd come to be very grateful for, a Cypress end-to-end suite running in GitHub Actions. The core loop was good. Friends played it. It was fun.
+
+![The 2022 prototype: an unstyled white page titled "Crypto Wars" with a bare table of four coins, default-blue Buy and default-green Sell buttons, and an Advance Day button.](/images/crypto-frenzy-before.png)
+
+_Exhibit A: the 2022 build, in all its unstyled glory. It was still called "Crypto Wars" back then. The screenshot at the top of this post is the same game today._
+
+And then it sat. For four years it got the classic side-project treatment: a burst of styling here, a dependency vulnerability patched there, a "new redesign" whenever the guilt got loud enough. The distance between "fun prototype my friends will play" and "thing I would put my name on publicly" never got shorter, because that distance is not made of fun parts. It is made of save-file migrations and accessibility audits and the seventeen small UX papercuts you stop seeing because you've played your own game a thousand times.
+
+That gap is where most side projects go to die. Mine included, I figured.
+
+## Three weeks
+
+This summer I pointed an agentic coding setup at the repo — Claude Code, working from a `ROADMAP.md` we wrote together and treated as the single source of truth. Every PR ticks boxes in it, logs decisions in it, adjusts phases in it. Between July 1 and July 19, seventeen PRs landed: a replatform off Next.js onto Vite, the reducer rebuilt into a pure deterministic game engine, quantity controls, an accessibility pass with automated WCAG scanning, sound effects synthesized from raw Web Audio, a comprehensive UX sweep, a review of all 258 player-facing strings, a PWA build that plays offline, and versioned save-file migrations so nobody's run gets torched by an update.
+
+Three weeks. Four years of "I should really finish that," and then three weeks.
+
+I know how that sentence reads in 2026. Every third post on the internet is someone breathlessly insisting an LLM built their company while they slept, and I'm not going to add to that pile, because that's not what happened here and it's not the interesting part anyway.
+
+## Why it actually worked
+
+A while back I wrote [a post about why I play kaizo Mario hacks](/blog/kaizo-mario-and-the-feedback-loop), and the part of it that keeps leaking into my work is the feedback loop: when you die in a good hack, you know exactly why, and you're already trying again. Run the experiment, get an honest result, adjust, repeat, hundreds of times an hour. I argued that the tools I choose at work live or die by the same standard.
+
+An agent is that standard, stress-tested. It works by trying things at a rate no human sustains — and everything depends on whether each attempt gets an honest answer. Slow builds, flaky tests, vague errors: an agent doesn't route around those the way a person does, with intuition and coffee. It just gets confidently lost.
+
+Which is why 2023 me deserves a beer. That Cypress suite I bolted on back when the game was a toy became the honest answer to every attempt. The agent's first real act was rewriting the E2E tests to match the current UI, and from then on nothing merged without the suite agreeing it worked. The replatform from Next.js to Vite — the kind of change that quietly breaks four things you won't notice for a month — went through with the suite green the entire time. Not because the agent is careful. Because it got told the truth several hundred times a day.
+
+By the end, the suite had grown to 58 unit tests and 30 end-to-end tests, all gating CI. The accessibility work is my favorite version: instead of me squinting at contrast ratios, cypress-axe scans every screen on every PR. It started at 4 violations. It's been at zero ever since, and it can't silently regress.
+
+## Two bugs I want on the record
+
+The first: the game shipped to production with an invisible 1×1 pixel button in the difficulty modal labeled "Enable test mode." A leftover Cypress hook from 2023. It was keyboard-focusable. It announced itself to screen readers. It sat there for three years, and I placed it myself and forgot. (I wrote a whole post about [hidden invisible blocks placed exactly where you'd least expect them](/blog/kaizo-mario-and-the-feedback-loop). Turns out I'd built one.) The accessibility scan found it in minutes.
+
+The second one is better, because the villain is subtler. A regression test kept failing at 375px — real phone width — insisting the layout was ~600px wide. I checked the responsive preview in my browser's dev pane: looked fine. So I did what any tired engineer does and blamed the test infrastructure. Flaky, obviously.
+
+It was not flaky. The layout bug was real — flex children refusing to shrink below their content width — and it was _inflating the dev preview pane's own layout viewport to match_. The instrument I was using to check for the bug was being resized by the bug. The preview could never show me a true phone width until the thing it was hiding got fixed. Cypress's cold, unsympathetic 375 pixels were right the entire time. That suite has killed hundreds of attempts — mine and the agent's both — and it has never once lied to either of us, which is more than I can say for my browser's dev tools.
+
+## What was left for me
+
+Here's the part the breathless posts leave out: automating the code didn't automate me out. It changed what my time was made of.
+
+My contributions from these three weeks are almost all decisions. Playing full runs on my actual phone and writing up what felt wrong ("the UI is definitely responsive, but the UX is awful" is a direct quote from me, into the roadmap, verdict logged and dated). Rejecting a mobile card layout in favor of keeping the market table, because seeing everything together _is_ the game. Ruling on six open copy questions. Deciding the game's voice is flavor outside, utility inside — CRT-noir when you arrive and when you die, plain language while you're making money. The roadmap has an architecture-decisions log with my name on every call, and the entire UX-sweep work list came out of my thumbs on a real phone screen.
+
+At no point did anything tell me whether the game was fun. That question never stopped being mine. It turns out that's most of the job, and it always was — I just used to do it in the gaps between typing.
+
+## A 1.0 I can prove
+
+The word I keep coming back to is _provable_. The engine refactor made the whole game a pure function: one seed plus one action log replays any run ever played, deterministically, tick for tick. Every rule — debt compounding, price bands, cost basis, high-score logic — has a unit test pinning it down. The old prototype was fun, and I could vouch for it. This version is fun, and it can vouch for itself.
+
+I'm not going to dress this up as the future of anything. As proof, here is a commit I hand-wrote in the middle of all this, message reproduced in full:
+
+> fixes stupid ass fucking white space bullshit
+
+And here, in its entirety, is the change it ships:
+
+```diff
+--- a/styles/globals.css
++++ b/styles/globals.css
+@@ -116,7 +116,6 @@
+     letter-spacing: 0.03em;
+     font-weight: 600;
+     background-color: #02040a;
+-    white-space: pre-wrap;
+     min-height: 100vh;
+```
+
+One deleted line. At 9:38 PM on a Thursday, `white-space: pre-wrap` earned every word of that commit message, and no agent on earth could have written it for me. The human condition survives intact.
+
+What I'll actually claim is smaller, and I believe it completely: the projects that stall in the last twenty percent stall there because the last twenty percent is a grind with no feedback. If you can make the feedback honest and instant, the grind becomes something you can hand off. And your job quietly becomes the good part — deciding what the thing should be.
+
+Four years of guilt, three weeks of shipping, one game I'll put my name on. Go play it: [cryptofrenzy.win](https://cryptofrenzy.win). Yes, I bought the .win domain. The loan shark thought it was funny too.
+
+Will Carter, 2026
+
+_If you read this far, thank you! The roadmap, decision log, and every gory PR are public in the repo — including the invisible button. I left the commit history unsanitized; the deaths are part of the run. And if you'd like to keep the terminal caffeinated, it has a [coin slot](https://buymeacoffee.com/zzayphod)._

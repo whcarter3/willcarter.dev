@@ -48,7 +48,7 @@
   .nav {
     background: var(--grad-mood-linear);
   }
-  .nav.is-transparent { background: transparent; box-shadow: none; position: absolute; left: 0; right: 0; }
+  .nav.is-transparent { background: transparent; box-shadow: none; position: absolute; left: 0; right: 0; z-index: 10; }
   .nav-inner {
     position: relative;
     max-width: 1400px; margin: 0 auto; padding: 14px 24px;
@@ -283,6 +283,14 @@
     font-size: var(--text-sm); line-height: 1.6; margin: 1.4em 0;
   }
   .article pre code { background: none; color: var(--fg-1); padding: 0; }
+  .article .hljs-deletion { color: var(--code-del); background: var(--code-del-bg); }
+  .article .hljs-addition { color: var(--code-add); background: var(--code-add-bg); }
+  .article .hljs-meta { color: var(--accent-sky); }
+  .article .hljs-comment { color: var(--fg-3); }
+  .article .hljs-keyword, .article .hljs-selector-tag { color: var(--accent); }
+  .article .hljs-string, .article .hljs-attr, .article .hljs-attribute { color: var(--accent-sky); }
+  .article .hljs-number, .article .hljs-literal { color: var(--accent-2); }
+  .article .hljs-title, .article .hljs-selector-class, .article .hljs-built_in { color: var(--fg-2); }
   .article img, .article .figure { border-radius: var(--radius-md); margin: 1.6em 0; }
   .article hr { border: none; border-top: var(--border-width) solid var(--border-2); margin: 2.2em 0; }
   .article a { color: var(--accent); }
@@ -339,9 +347,27 @@
 
   /* Hero (home page) */
   .hero {
+    position: relative;
     min-height: 100vh; display: flex; align-items: center; justify-content: center;
     padding: 40px;
     background: var(--grad-mood-card);
+  }
+  .hero-latest {
+    position: absolute; right: 40px; bottom: 32px;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+    max-width: min(340px, 70vw);
+    color: var(--fg-on-sun); text-align: right;
+    text-shadow: var(--text-shadow-link);
+    transition: text-shadow var(--dur) var(--ease), transform var(--dur-fast) var(--ease);
+  }
+  .hero-latest:hover { text-shadow: var(--text-shadow-hover); transform: scale(var(--hover-scale)); }
+  .hero-latest-label {
+    font-family: var(--font-pt-mono); font-size: var(--text-xs);
+    letter-spacing: .12em; text-transform: uppercase; opacity: .78;
+  }
+  .hero-latest-title { font-family: var(--font-heading); font-size: var(--text-base); line-height: 1.4; }
+  @media (max-width: 640px) {
+    .hero-latest { right: 20px; bottom: 84px; max-width: 80vw; }
   }
   .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--fg-on-sun); line-height: 1.4; max-width: 900px; }
   .hero-link {

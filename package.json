@@ -28,6 +28,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
     "react-type-animation": "^2.1.2",
+    "rehype-highlight": "^7.0.2",
     "sharp": "^0.33.5",
     "typescript": "4.9.4"
   },

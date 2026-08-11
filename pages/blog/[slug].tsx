@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
+import rehypeHighlight from 'rehype-highlight';
 import { BsArrowLeft } from 'react-icons/bs';
 import Layout from '@/components/layout';
 import TagPill from '@/components/TagPill';
@@ -45,7 +46,9 @@ export async function getStaticProps({
   params: { slug: string };
 }) {
   const post = getPostBySlug(params.slug);
-  const mdxSource = await serialize(post.content);
+  const mdxSource = await serialize(post.content, {
+    mdxOptions: { rehypePlugins: [rehypeHighlight] },
+  });
 
   return {
     props: {

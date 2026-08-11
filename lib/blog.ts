@@ -16,7 +16,7 @@ export interface PostMetadata {
   readingTime: string;
   featured?: boolean;
   published?: boolean;
-  image?: string;
+  image?: string | null;
 }
 
 export interface Post extends PostMetadata {
@@ -70,14 +70,14 @@ export function getPostBySlug(slug: string): Post {
     content,
     title: data.title,
     date: dateString,
-    dateLabel: format(new Date(dateString), 'MMM d, yyyy'),
+    dateLabel: format(new Date(`${dateString}T00:00:00`), 'MMM d, yyyy'),
     description: data.description,
     tags,
     category,
     readingTime: computeReadingTime(content),
     featured: data.featured ?? false,
     published: data.published ?? true,
-    image: data.image ?? undefined,
+    image: data.image ?? null,
   };
 }
 
