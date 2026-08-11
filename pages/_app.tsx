@@ -5,6 +5,7 @@ import { PT_Mono, Source_Sans_3 } from 'next/font/google';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import ThemeToggle from '@/components/ThemeToggle';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const ptMono = PT_Mono({
   weight: '400',
@@ -37,6 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
         {isHome && <ThemeToggle variant="hero" />}
       </div>
       <Analytics />
+      <SpeedInsights />
     </ThemeProvider>
   );
 }
