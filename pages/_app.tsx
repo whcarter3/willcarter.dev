@@ -1,23 +1,11 @@
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { PT_Mono, Source_Sans_3 } from 'next/font/google';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import ThemeToggle from '@/components/ThemeToggle';
+import { ptMono, sourceSans3 } from '@/lib/fonts';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-
-const ptMono = PT_Mono({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-const sourceSans3 = Source_Sans_3({
-  weight: ['400', '600'],
-  subsets: ['latin'],
-  display: 'swap',
-});
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -25,15 +13,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider>
-      {/* Font variables live on :root so tokens.css composites
-          (--font-heading, --font-body, --font-mono) can resolve them. */}
-      <style jsx global>{`
-        :root {
-          --font-pt-mono: ${ptMono.style.fontFamily};
-          --font-source-sans-pro: ${sourceSans3.style.fontFamily};
-        }
-      `}</style>
-      <div className="font-body" style={{ display: 'contents' }}>
+      {/* The variable classes also live on <Html> in _document so the
+          variables exist at :root for the tokens.css font composites;
+          importing the fonts here is what bundles their CSS client-side. */}
+      <div className={`${ptMono.variable} ${sourceSans3.variable} font-body`} style={{ display: 'contents' }}>
         <Component {...pageProps} />
         {isHome && <ThemeToggle variant="hero" />}
       </div>
